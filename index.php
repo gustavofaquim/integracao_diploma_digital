@@ -17,8 +17,8 @@ function api_abaris_autenticacao(){
 
     //Post
     $post = [
-        'userName' => 'gustavo.faquim',
-        'password' => 'wtf@13Zy',
+        'userName' => '---------',
+        'password' => '---------',
         'AuthenticationCode:' =>  '0'
     ];
 
