@@ -1,6 +1,5 @@
 <?php
 
-echo "Ola mundo </br></br>";
 
 function api_abaris_autenticacao(){
 
@@ -17,8 +16,8 @@ function api_abaris_autenticacao(){
 
     //Post
     $post = [
-        'userName' => '-----------',
-        'password' => '-----------'
+        'userName' => '---------------',
+        'password' => '--------------'
     ];
 
     $json = json_encode($post);
@@ -44,6 +43,7 @@ function api_abaris_autenticacao(){
 
     // Imprime o resultado da requisição
    // echo $response;
+   var_dump($response);
 
    return $response;
 }
@@ -75,7 +75,7 @@ function api_abaris_teste(){
 function api_abaris_getDocumentByID($auth, $id){
     // Inicia o CURL
     $curl = curl_init();
-
+    set_time_limit(0);
     $url = 'https://documents.abaris.com.br/api/v1/document/'.$id.'/view';
 
     //Cabecalhos
@@ -113,17 +113,24 @@ function abaris_getDocumentBySearch($auth,$tipoDoc){
          'Content-Type: application/json'
      ];
 
-     $post = [
+     
+    $post = [
         "nomes_tipodocumento" => [$tipoDoc],
         "resultados_pagina" => 15000,
         "resultado_inicial" => 0,
-        "dataDe" => "2023-04-04T13:22:39.933Z",
-        "dataAte" => "2023-04-04T13:22:39.933Z"
+        "dataDe" => "2023-02-01T13:22:39.933Z",
+        "dataAte" => "2023-05-01T13:22:39.933Z",
+        "indiceBusca" => [
+            [
+               "nome" => "Tipo de Documentos", 
+               "valor" => "XML Documentação Acadêmica" 
+            ] 
+        ], 
     ];
-
+    
     $json = json_encode($post);
 
-  
+    
 
      curl_setopt_array($curl,[
          CURLOPT_URL => $url,
@@ -144,37 +151,52 @@ function abaris_getDocumentBySearch($auth,$tipoDoc){
       return $response;   
 }   
 
-function lyceum_listaDiplomas($aluno,$cpf, $id,$status){
-     
-    // Inicia o CURL
+
+
+function abaris_novoDocumento($auth,$xml){
     $curl = curl_init();
 
-    $url = 'http://172.16.16.106:8080/api/diploma-digital/diplomas-digitais?aluno-id='.$aluno.'&cpf='.$cpf.'&lote='.$id.'&status='.$status;
+    $url = 'https://documents.abaris.com.br/api/v1/document';
+
 
     //Cabecalhos
     $headers = [
-        'Authorization: Basic YXBpdXNlcjphcGl1c2VyQDEyMw=='
+        'x-api-key:'.$auth,
+        'Content-Type: multipart/form-data'
     ];
 
-   
+
+    $post = [
+        "NameDocType" => "CPF",
+        "jsonIndex" => ["MATRICULA" => "2310744", "NOME"=> "Luiz - Teste","CPF"=> "123123123","CODIGO SIGA" => "125.33 - GRADUAÇÃO", "MANTIDA" => "UNIEVANGELICA","RESPONSAVEL PELA DIGITALIZAÇÃO"=> "Gustavo"],
+        //"jsonIndex" => ['MATRICULA': '2111287',  'NOME': 'Luiz - Teste', 'CPF': '123123123', 'CODIGO SIGA':'125.33 - GRADUAÇÃO', 'MANTIDA': 'UNIEVANGELICA', 'RESPONSAVEL PELA DIGITALIZAÇÃO': 'Gustavo '],
+        "File" => $xml
+    ];
+
+    $json = json_encode($post);
+
+    
     curl_setopt_array($curl,[
         CURLOPT_URL => $url,
-        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_HTTPHEADER => $headers
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_POSTFIELDS => $json
     ]);
 
-    // Executa a requisição
-    $response = curl_exec($curl);
+     // Executa a requisição
+     $response = curl_exec($curl);
 
-    // Fecha a conexão
-    curl_close($curl);
 
-    // Imprime o resultado da requisição
-
-    return $response;
+     // Fecha a conexão
+     curl_close($curl);
+ 
+     // Imprime o resultado da requisição
+     return $response;
 
 }
+
+
 
 function lyceum_registraDiplomaExterno($idExterno, $lote, $tenant, $xml){
     
@@ -186,6 +208,7 @@ function lyceum_registraDiplomaExterno($idExterno, $lote, $tenant, $xml){
     //Cabecalhos
     $headers = [
         'Authorization: Basic YXBpdXNlcjphcGl1c2VyQDEyMw==',
+        //'Content-Type: multipart/form-data'
         'Content-Type: application/json'
     ];
 
@@ -221,21 +244,84 @@ function lyceum_registraDiplomaExterno($idExterno, $lote, $tenant, $xml){
 }
 
 
-$cod = json_decode(api_abaris_autenticacao());
-echo $cod->rsaKey ."</br></br>";
+$auth = json_decode(api_abaris_autenticacao())->rsaKey;
+echo $auth ."</br></br>";
 //api_abaris_teste();
-$file = json_decode(api_abaris_getDocumentByID($cod->rsaKey,'245771'));
+
+
+
+
+function executar_upload_lyceum($auth){
+    $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro'));
+    
+    $docs = $search->documentos;
+   
+    foreach($docs as $doc){
+        
+         $file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
+         //var_dump($file->file);
+         //exit();
+         var_dump(lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file));
+         echo "<br> <br>";
+     
+     }
+     
+}
+
+// executar_upload_lyceum($auth);
+
+
+
+function lyceum_obterXmlDiploma($codValidacao){
+
+    // Inicia o CURL
+    $curl = curl_init();
+
+    $url = 'http://172.16.16.106:8080/api/diploma-digital/obter-arquivo-diplomado?cod-validacao='.$codValidacao.'&tipo=xml';
+
+     //Cabecalhos
+     $headers = [
+        'Authorization: Basic YXBpdXNlcjphcGl1c2VyQDEyMw=='
+    ];
+
+   
+    curl_setopt_array($curl,[
+        CURLOPT_URL => $url,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => $headers
+    ]);
+
+    // Executa a requisição
+    $response = curl_exec($curl);
+
+    // Fecha a conexão
+    curl_close($curl);
+
+    // Imprime o resultado da requisição
+
+    return $response;
+    
+}
+
+$xmlLyceum = lyceum_obterXmlDiploma('1364.384.1d29b6b66f78');
+
+var_dump(abaris_novoDocumento($auth,base64_encode($xmlLyceum)));
+
+
+
+//$file = json_decode(api_abaris_getDocumentByID($auth,'245771'));
 
 
 //var_dump($file);
 
 //echo "<a href='".base64_decode($file->file)."' download='".$file->name."'>Download</a> <br><br><br>";
 //echo base64_decode($file->file);
-//echo abaris_getDocumentBySearch($cod->rsaKey, 'CPF');
+
 
 
 //echo lyceum_listaDiplomas('1710050', '02870706111', '1', 'Finalizado');
 
-echo lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file);
+//echo lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file);
 
 // Voltar arquivo finalizado para o Ábaris
