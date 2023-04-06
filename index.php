@@ -28,8 +28,10 @@ echo "<br><br><br>";
 try{
 
     $Conexao = Conexao::getConnection();
-    $query = $Conexao->query("SELECT nome, preco, quantidade FROM produto");
+    $query = $Conexao->query("SELECT TOP 10 ALUNO FROM LY_ALUNO");
     $produtos = $query->fetchAll();
+
+    var_dump($produtos);
 
  }catch(Exception $e){
 
