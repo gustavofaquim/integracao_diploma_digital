@@ -83,7 +83,7 @@ function api_abaris_getDocumentByID($auth, $id){
 
 // Em desenvolvimento...
 
-function abaris_novoDocumento($auth,$xml){
+function abaris_novoDocumento($auth, $diretorioArquivo, $nomeArquivo, $diplomaAluno){
     $curl = curl_init();
 
     $url = 'https://documents.abaris.com.br/api/v1/document';
@@ -96,10 +96,17 @@ function abaris_novoDocumento($auth,$xml){
         'Content-Type: multipart/form-data'
     ];
 
+    $nomeAluno = json_decode($diplomaAluno)[0]->aluno_nome;
+    $matriculaAluno = json_decode($diplomaAluno)[0]->aluno_id;
+    $cpfAluno = json_decode($diplomaAluno)[0]->aluno_cpf;
+    $aluno_id = json_decode($diplomaAluno)[0]->aluno_id;
+
+    
+
     $IdDocType = "122";
     $nameDocType = 'Documentos Pessoais - Registro';
-    $jsonIndex = json_encode(array("Tipo de Documentos" => "XML do Diplomado", "Sigla Instituição" => "Faculdade CONSAE", "NOME" => "Teste Integração 2", "MATRICULA" => "2110744", "CPF" => "04973452181"));
-    $file = new CURLFile('xml_diplomado.xml', 'application/json', 'teste.xml'); 
+    $jsonIndex = json_encode(array("Tipo de Documentos" => "XML do Diplomado", "Sigla Instituição" => "Faculdade CONSAE", "NOME" => $nomeAluno, "MATRICULA" => $aluno_id, "CPF" => $cpfAluno));
+    $file = new CURLFile($diretorioArquivo, 'application/json', $nomeArquivo); 
 
 
     $data = array(
@@ -108,6 +115,8 @@ function abaris_novoDocumento($auth,$xml){
         'jsonIndex' => $jsonIndex,
         'File' => $file
     );
+
+    
 
    
     curl_setopt_array($curl, [
@@ -129,11 +138,8 @@ function abaris_novoDocumento($auth,$xml){
      // Fecha a conexão
      curl_close($curl);
 
-     if ($err) {
-        echo "cURL Error #:" . $err;
-    } else {
-        echo $response;
-    }
+     unlink($diretorioArquivo);
+
  
      // Imprime o resultado da requisição
      return $response;
@@ -162,5 +168,5 @@ function api_abaris_teste(){
     curl_close($curl);
 
     // Imprime o resultado da requisição
-    echo $response;
+    return $response;
 }

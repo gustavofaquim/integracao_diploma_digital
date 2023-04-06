@@ -4,14 +4,48 @@ include 'error.php';
 
 include 'auth.php';
 
-include 'lyceum.php';
-include 'abaris.php';
+//include 'lyceum.php';
+//include 'abaris.php';
+include 'integracao.php';
 
 
+define('DB_HOST'        , "DES03");
+define('DB_USER'        , "lyceum");
+define('DB_PASSWORD'    , "teste");
+define('DB_NAME'        , "lyceum");
+define('DB_DRIVER'      , "sqlsrv");
 
-echo "<br><h1>Página Inicial </h1><br>";
+include 'conf/Conexao.php';
+
+
+echo "<br><h1>Página Inicial </h1>";
 $auth = abaris_autenticacao();
+print_r('<h4>Código de Autenticação Ábaris: '. $auth.'</h4>');
 echo "<br><br><br>";
+
+
+
+try{
+
+    $Conexao = Conexao::getConnection();
+    $query = $Conexao->query("SELECT nome, preco, quantidade FROM produto");
+    $produtos = $query->fetchAll();
+
+ }catch(Exception $e){
+
+    echo $e->getMessage();
+    exit;
+
+ }
+
+
+
+//dispara_registro_lyceum($auth);
+
+
+/* Testado ok */
+//$xml_aluno = lyceum_listaDiplomaPorAluno("A7DA83FA-C626-4333-829F-C826491D4EC5", "06920662507");
+//var_dump(json_decode($xml_aluno)[0]->cod_validacao);
 
 
 /* Testado ok */
@@ -34,20 +68,26 @@ echo "<br><br><br>";
 //lyceum_executar($auth);
 
 
+/* Testado ok */
+//$novoDoc = abaris_novoDocumento($auth,$xmlLyceum);
+//var_dump($novoDoc);
 
-$xmlLyceum = lyceum_obterXmlDiploma('1364.384.1d29b6b66f78');
+
+//teste($auth,"A7DA83FA-C626-4333-829F-C826491D4EC5","06920662507");
+
+//$xmlLyceum = lyceum_obterXmlDiploma('1364.384.1d29b6b66f78');
 //var_dump($xmlLyceum);
 //exit();
 
-$arquivo = fopen('xml_diplomado.xml','w');
-fwrite($arquivo, $xmlLyceum);
-fclose($arquivo);
+
+//echo "<a href='xml_diplomado.xml' download='xml_diplomado.xml'> Download</a><br>";
+
+//$novoDoc = abaris_novoDocumento($auth,$xmlLyceum);
+//var_dump($novoDoc);
 
 
-echo "<a href='xml_diplomado.xml' download='xml_diplomado.xml'> Download</a><br>";
 
-$novoDoc = abaris_novoDocumento($auth,$xmlLyceum);
-var_dump($novoDoc);
+
 
 
 
