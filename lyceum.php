@@ -29,7 +29,7 @@ function lyceum_obterXmlDiploma($codValidacao){
     curl_close($curl);
 
     // Imprime o resultado da requisição
-    return json_decode($response);
+    return $response;
     
 }
 

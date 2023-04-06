@@ -8,13 +8,14 @@ include 'lyceum.php';
 include 'abaris.php';
 
 
-$auth = abaris_autenticacao();
+
 echo "<br><h1>Página Inicial </h1><br>";
+$auth = abaris_autenticacao();
+echo "<br><br><br>";
 
 
-
-/** Ainda testar... */
-//$xmlLyceum = lyceum_obterXmlDiploma('1364.384.1d29b6b66f78');
+/* Testado ok */
+//xmlLyceum = lyceum_obterXmlDiploma('1364.384.1d29b6b66f78');
 //var_dump($xmlLyceum. '<br>');
 
 //$diplomaExterno = lyceum_registraDiplomaExterno($idExterno, $lote, $tenant, $xml)
@@ -29,14 +30,23 @@ echo "<br><h1>Página Inicial </h1><br>";
 //var_dump($file);
 
 
-/** Ainda testar... */
+/* Testado ok */
 //lyceum_executar($auth);
 
 
 
+$xmlLyceum = lyceum_obterXmlDiploma('1364.384.1d29b6b66f78');
+//var_dump($xmlLyceum);
+//exit();
+
+$arquivo = fopen('xml_diplomado.xml','w');
+fwrite($arquivo, $xmlLyceum);
+fclose($arquivo);
 
 
-$novoDoc = abaris_novoDocumento($auth,$xml);
+echo "<a href='xml_diplomado.xml' download='xml_diplomado.xml'> Download</a><br>";
+
+$novoDoc = abaris_novoDocumento($auth,$xmlLyceum);
 var_dump($novoDoc);
 
 

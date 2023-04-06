@@ -92,27 +92,35 @@ function abaris_novoDocumento($auth,$xml){
     //Cabecalhos
     $headers = [
         'x-api-key:'.$auth,
+        "cache-control: no-cache",
         'Content-Type: multipart/form-data'
     ];
 
+    $IdDocType = "122";
+    $nameDocType = 'Documentos Pessoais - Registro';
+    $jsonIndex = json_encode(array("Tipo de Documentos" => "XML do Diplomado", "Sigla Instituição" => "Faculdade CONSAE", "NOME" => "Teste Integração 2", "MATRICULA" => "2110744", "CPF" => "04973452181"));
+    $file = new CURLFile('xml_diplomado.xml', 'application/json', 'teste.xml'); 
 
-    $post = [
-        "NameDocType" => "CPF",
-        "jsonIndex" => ["MATRICULA" => "2310744", "NOME"=> "Luiz - Teste","CPF"=> "123123123","CODIGO SIGA" => "125.33 - GRADUAÇÃO", "MANTIDA" => "UNIEVANGELICA","RESPONSAVEL PELA DIGITALIZAÇÃO"=> "Gustavo"],
-        //"jsonIndex" => ['MATRICULA': '2111287',  'NOME': 'Luiz - Teste', 'CPF': '123123123', 'CODIGO SIGA':'125.33 - GRADUAÇÃO', 'MANTIDA': 'UNIEVANGELICA', 'RESPONSAVEL PELA DIGITALIZAÇÃO': 'Gustavo '],
-        "File" => $xml
-    ];
 
-    $json = json_encode($post);
+    $data = array(
+        "IdDocType" =>   $IdDocType,
+        'nameDocType' => $nameDocType,
+        'jsonIndex' => $jsonIndex,
+        'File' => $file
+    );
 
-    
-    curl_setopt_array($curl,[
+   
+    curl_setopt_array($curl, [
         CURLOPT_URL => $url,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HTTPHEADER => $headers,
-        CURLOPT_POSTFIELDS => $json
+        CURLOPT_POSTFIELDS => $data
     ]);
+
+
 
      // Executa a requisição
      $response = curl_exec($curl);
@@ -120,14 +128,17 @@ function abaris_novoDocumento($auth,$xml){
 
      // Fecha a conexão
      curl_close($curl);
+
+     if ($err) {
+        echo "cURL Error #:" . $err;
+    } else {
+        echo $response;
+    }
  
      // Imprime o resultado da requisição
      return $response;
 
 }
-
-
-
 
 
 function api_abaris_teste(){
