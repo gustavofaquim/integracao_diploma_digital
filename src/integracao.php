@@ -1,7 +1,7 @@
 <?php
 include 'lyceum.php';
 include 'abaris.php';
-include 'db/database.php';
+include '../db/database.php';
 
 header('Content-Type: text/html; charset=utf-8');
 
@@ -38,9 +38,6 @@ function dispara_registro_lyceum($auth){
     
         $idretorno = insere_integracao($dado);
         
-        //$idretorno = recuperar_id();
-        
-
         insere_retorno($idretorno,$dado['retorno_lyceum']);
         
      }

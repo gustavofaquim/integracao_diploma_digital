@@ -4,7 +4,7 @@
 function abaris_autenticacao(){
 
 
-    $autenticacao = json_decode(file_get_contents('conf/conf.json'));
+    $autenticacao = json_decode(file_get_contents('../conf/conf.json'));
     
     $user = $autenticacao->user;
     $pass = $autenticacao->password;

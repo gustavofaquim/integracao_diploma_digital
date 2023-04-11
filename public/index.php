@@ -1,24 +1,14 @@
 <?php
-
-header('Content-Type: text/html; charset=utf-8');
-
-include 'error.php';
-
-include 'auth.php';
-
-//include 'lyceum.php';
-//include 'abaris.php';
-include 'integracao.php';
+include '../view/inicio.php';
+?>
 
 
-echo "<br><h1>Página Inicial </h1>";
-$auth = abaris_autenticacao();
-print_r('<h4>Código de Autenticação Ábaris: '. $auth.'</h4>');
-echo "<br><br><br>";
+
+<?php
 
 
-$lyceum = dispara_registro_lyceum($auth);
-var_dump($lyceum);
+//$lyceum = dispara_registro_lyceum($auth);
+
 
 /*$retorno = dispara_registro_lyceum($auth);
 echo "<pre>";

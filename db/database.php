@@ -1,6 +1,6 @@
 <?php
 
-include 'conf/Database.php';
+include '../conf/Database.php';
 
 
 
