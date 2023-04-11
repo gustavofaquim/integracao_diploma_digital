@@ -1,5 +1,7 @@
 <?php
 
+header('Content-Type: text/html; charset=utf-8');
+
 include 'error.php';
 
 include 'auth.php';
@@ -7,15 +9,7 @@ include 'auth.php';
 //include 'lyceum.php';
 //include 'abaris.php';
 include 'integracao.php';
-
-
-define('DB_HOST'        , "DES03");
-define('DB_USER'        , "lyceum");
-define('DB_PASSWORD'    , "teste");
-define('DB_NAME'        , "lyceum");
-define('DB_DRIVER'      , "sqlsrv");
-
-include 'conf/Conexao.php';
+include 'db/database.php';
 
 
 echo "<br><h1>Página Inicial </h1>";
@@ -25,24 +19,32 @@ echo "<br><br><br>";
 
 
 
-try{
+/*$retorno = dispara_registro_lyceum($auth);
+echo "<pre>";
+var_dump($retorno);
+echo "</pre>";
 
-    $Conexao = Conexao::getConnection();
-    $query = $Conexao->query("SELECT TOP 10 ALUNO FROM LY_ALUNO");
-    $produtos = $query->fetchAll();
-
-    var_dump($produtos);
-
- }catch(Exception $e){
-
-    echo $e->getMessage();
-    exit;
-
- }
+echo "<br><br><br>";
 
 
+foreach($retorno as $r){
+   $listar = insere_integracao($r);
+   echo "<br> <h2>Retorno SQL</h2> <br>";
+   
+   var_dump($listar);
+   
+   $idretorno = recuperar_id();
+   
+   var_dump(insere_retorno($idretorno,$r['retorno_lyceum']));
+}*/
 
-//dispara_registro_lyceum($auth);
+$lista = lista_integrados();
+//var_dump($lista);
+
+var_dump(abaris_getDocumentBySearch($auth,'Documentos Pessoais - Registro', $lista));
+
+//$listar = insere_integracao($retorno);
+//ar_dump($listar);
 
 
 /* Testado ok */

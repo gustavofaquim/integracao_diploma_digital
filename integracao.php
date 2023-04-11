@@ -2,6 +2,7 @@
 include 'lyceum.php';
 include 'abaris.php';
 
+header('Content-Type: text/html; charset=utf-8');
 
 /**
  *  O método dispara_registro_lyceum chama todos os outros metodos necessários para o fluxo inicial da integração:
@@ -11,16 +12,26 @@ include 'abaris.php';
  */
 function dispara_registro_lyceum($auth){
     $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro'));
-    
+    $reponse = array();
     $docs = $search->documentos;
-    
     foreach($docs as $doc){
+        $dado = [];
+       
+        $file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
         
-         $file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
-         $response = lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file);
-
-         echo "<br>".$response."<br>"; // Mensagem deve ser grava do banco...
+        // Pega os indexadores do documento e adiciona no array.
+        foreach($doc->documentoIndice as $indexador){
+            if($indexador->nomeIndice == "CPF" OR $indexador->nomeIndice == "NOME" OR  $indexador->nomeIndice == "MATRICULA" OR $indexador->nomeIndice == "Sigla Instituição"){
+                $dado += array(str_replace(" ", "_",strtolower(str_replace("ç", "c",str_replace("ã","a",$indexador->nomeIndice)))) => $indexador->valor);
+                
+            }
+        }
+        
+        $dado += array('retorno_lyceum' => lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file));
+        $response[] = $dado;
+        
      }
+     return $response;
 }
 
 
@@ -52,3 +63,4 @@ function dispara_upload_abaris($auth, $aluno,$cpf){
     
     return $novoDoc; 
 }
+

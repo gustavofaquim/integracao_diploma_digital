@@ -1,7 +1,7 @@
 <?php
 
-// Bsuca de documentos atraves da bsuca avançada
-function abaris_getDocumentBySearch($auth,$tipoDoc){
+// Bsuca de documentos atraves da busca avançada
+function abaris_getDocumentBySearch($auth,$tipoDoc, $excecoes){
     // Inicia o CURL
     $curl = curl_init();
 
@@ -14,6 +14,18 @@ function abaris_getDocumentBySearch($auth,$tipoDoc){
     ];
 
     
+    $indice = array();
+    foreach($excecoes as $ex){
+        $chaves = [];
+        //var_dump($ex["CPF"]);
+        //exit();
+        $chaves += ["nome" => "CPF", "valor" => $ex["CPF"]];
+        
+        $indice[] = $chaves;
+    }
+
+
+
    $post = [
        "nomes_tipodocumento" => [$tipoDoc],
        "resultados_pagina" => 15000,
@@ -24,9 +36,10 @@ function abaris_getDocumentBySearch($auth,$tipoDoc){
            [
               "nome" => "Tipo de Documentos", 
               "valor" => "XML Documentação Acadêmica" 
-           ] 
+           ],$indice // Problema está aqui ...
        ], 
    ];
+
    
    $json = json_encode($post);
 
@@ -118,7 +131,6 @@ function abaris_novoDocumento($auth, $diretorioArquivo, $nomeArquivo, $diplomaAl
 
     
 
-   
     curl_setopt_array($curl, [
         CURLOPT_URL => $url,
         CURLOPT_ENCODING => "",
