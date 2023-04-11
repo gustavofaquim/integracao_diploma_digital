@@ -15,33 +15,26 @@ function abaris_getDocumentBySearch($auth,$tipoDoc, $excecoes){
 
     
     $indice = array();
+    $indice[] = array("nome" => "Tipo de Documentos","operador" => "=","valor" => "XML Documentação Acadêmica");
+    
+    
     foreach($excecoes as $ex){
-        $chaves = [];
-        //var_dump($ex["CPF"]);
-        //exit();
-        $chaves += ["nome" => "CPF", "valor" => $ex["CPF"]];
-        
-        $indice[] = $chaves;
+        $indice[] = array("nome" => "CPF", "operador" => "<>", "valor" => $ex["CPF"]);    
     }
-
-
-
+  
    $post = [
        "nomes_tipodocumento" => [$tipoDoc],
        "resultados_pagina" => 15000,
        "resultado_inicial" => 0,
-       "dataDe" => "2023-02-01T13:22:39.933Z",
-       "dataAte" => "2023-05-01T13:22:39.933Z",
-       "indiceBusca" => [
-           [
-              "nome" => "Tipo de Documentos", 
-              "valor" => "XML Documentação Acadêmica" 
-           ],$indice // Problema está aqui ...
-       ], 
+       "dataDe" => "2023-04-01",
+       //"dataAte" => "2023-05-01T13:22:39.933Z",
+       "indiceBusca" =>  $indice
    ];
 
-   
    $json = json_encode($post);
+
+   
+   
 
     curl_setopt_array($curl,[
         CURLOPT_URL => $url,

@@ -1,11 +1,6 @@
 <?php
 
-include 'conf/Conexao.php';
-define('DB_HOST'        , "DES03");
-define('DB_USER'        , "lyceum");
-define('DB_PASSWORD'    , "teste");
-define('DB_NAME'        , "Integracao_Diploma_Abaris");
-define('DB_DRIVER'      , "sqlsrv");
+include 'conf/Database.php';
 
 
 
@@ -21,8 +16,10 @@ function recuperar_id(){
         //echo $e->getMessage();
         $response = 0;
         
-      }
-      return intval($response[0][0]);
+    }
+    var_dump($response[0]);
+    exit();
+    return intval($response[0][0]);
 }
 
 
@@ -53,7 +50,8 @@ function listar(){
 function insere_integracao($dados){
     
     try{
-        $Conexao = Conexao::getConnection();
+        $con = new Database();
+        //$Conexao = Conexao::getConnection();
        
         $cpf = $dados['cpf'];
         $matricula = $dados['matricula'];
@@ -64,10 +62,22 @@ function insere_integracao($dados){
         //var_dump($cpf, "<br>", $matricula, "<br>", $nome, "<br>", $sigla);
         //exit();
 
-        $query = $Conexao->query("INSERT integracao (sigla_instituicao, cpf, matricula, nome_aluno,tentar_novamente, data) VALUES ('$sigla', '$cpf', '$matricula', '$nome', 'N', GETDATE())");
-        $query->fetchAll();
+        //$query = $Conexao->query("INSERT integracao (sigla_instituicao, cpf, matricula, nome_aluno,tentar_novamente, data) VALUES ('$sigla', '$cpf', '$matricula', '$nome', 'N', GETDATE())");
+        //$query->fetchAll();
         
-        $response = "Deu certo :)";
+        $query = "INSERT integracao (sigla_instituicao, cpf, matricula, nome_aluno,tentar_novamente, data) VALUES (:sigla, :cpf, :matricula, :nome, 'N', GETDATE())";
+        $stmt = $con->prepare($query);
+
+        $stmt->bindParam(':sigla', $sigla);
+        $stmt->bindParam(':cpf', $cpf);
+        $stmt->bindParam(':matricula', $matricula);
+        $stmt->bindParam(':nome', $nome);
+        
+        $result = $stmt->execute();
+        
+        $id = $con->lastInsertId();
+
+        $response = $id;
         
 
     }catch(Exception $e){
@@ -82,14 +92,24 @@ function insere_integracao($dados){
 
 function insere_retorno($id, $msg){
     try{
-        $Conexao = Conexao::getConnection();
+        //$Conexao = Conexao::getConnection();
         
+        $con = new Database();
+
         //$msg = $dados->retorno_lyceum;
         $idintegracao = $id;
         
-        $query = $Conexao->query("INSERT retorno_lyceum (idintegracao, msg) VALUES ($idintegracao, '$msg')");
-        $query->fetchAll(PDO::FETCH_OBJ);
-        $response = "Deu certo :)";
+        //$query = $Conexao->query("INSERT retorno_lyceum (idintegracao, msg) VALUES ($idintegracao, '$msg')");
+        
+        $query = "INSERT retorno_lyceum (idintegracao, msg) VALUES (:idintegracao, :msg)";
+        $stmt = $con->prepare($query);
+        
+
+        $stmt->bindParam(':idintegracao', $idintegracao);
+        $stmt->bindParam(':msg', $msg);
+
+        $result = $stmt->execute();
+        $response = $result;
         
     }catch(Exception $e){
     
@@ -97,19 +117,22 @@ function insere_retorno($id, $msg){
         $response = $e->getMessage();
         
      
-      }
-      return $response;
+    }
+    
+    return $response;
 }
 
 
 function lista_integrados(){
     try{
-        $Conexao = Conexao::getConnection();
-       
-        $query = $Conexao->query("SELECT CPF, nome_aluno FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao --WHERE MSG NOT LIKE '%Erro%' --AND MSG NOT LIKE '%não cadastrada%' ");
+        //$Conexao = Conexao::getConnection();
+        $con = new Database();
+
+        //$query = $Conexao->query("SELECT CPF, nome_aluno FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao WHERE i.tentar_novamente <> 'S' --AND MSG NOT LIKE '%não cadastrada%' ");
         
-        
-        $result =  $query->fetchAll(PDO::FETCH_OBJ);
+        $result = $con->executeQuery("SELECT CPF, nome_aluno FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao WHERE i.tentar_novamente <> 'S' --AND MSG NOT LIKE '%não cadastrada%' ");
+
+        $result = $result->fetchAll(PDO::FETCH_OBJ);
 
         $lista = [];
 

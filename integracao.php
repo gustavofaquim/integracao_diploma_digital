@@ -1,6 +1,7 @@
 <?php
 include 'lyceum.php';
 include 'abaris.php';
+include 'db/database.php';
 
 header('Content-Type: text/html; charset=utf-8');
 
@@ -11,27 +12,40 @@ header('Content-Type: text/html; charset=utf-8');
  *      3º. Passa o XML obtido do Ábaris para o Lyceum  (retorna a mensagem do Lyceum, que deve ser gravada no banco);
  */
 function dispara_registro_lyceum($auth){
-    $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro'));
+
+    // Lista dos documentos que já foram integrados no Lyceum
+    $lista_excecoes = lista_integrados();
+    
+
+    $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $lista_excecoes));
     $reponse = array();
     $docs = $search->documentos;
     foreach($docs as $doc){
         $dado = [];
        
         $file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
-        
+
         // Pega os indexadores do documento e adiciona no array.
         foreach($doc->documentoIndice as $indexador){
             if($indexador->nomeIndice == "CPF" OR $indexador->nomeIndice == "NOME" OR  $indexador->nomeIndice == "MATRICULA" OR $indexador->nomeIndice == "Sigla Instituição"){
                 $dado += array(str_replace(" ", "_",strtolower(str_replace("ç", "c",str_replace("ã","a",$indexador->nomeIndice)))) => $indexador->valor);
-                
             }
         }
         
         $dado += array('retorno_lyceum' => lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file));
         $response[] = $dado;
+
+    
+        $idretorno = insere_integracao($dado);
+        
+        //$idretorno = recuperar_id();
+        
+
+        insere_retorno($idretorno,$dado['retorno_lyceum']);
         
      }
-     return $response;
+    
+    return $response;
 }
 
 

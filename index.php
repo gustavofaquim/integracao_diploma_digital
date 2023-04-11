@@ -9,7 +9,6 @@ include 'auth.php';
 //include 'lyceum.php';
 //include 'abaris.php';
 include 'integracao.php';
-include 'db/database.php';
 
 
 echo "<br><h1>Página Inicial </h1>";
@@ -18,6 +17,8 @@ print_r('<h4>Código de Autenticação Ábaris: '. $auth.'</h4>');
 echo "<br><br><br>";
 
 
+$lyceum = dispara_registro_lyceum($auth);
+var_dump($lyceum);
 
 /*$retorno = dispara_registro_lyceum($auth);
 echo "<pre>";
@@ -36,13 +37,15 @@ foreach($retorno as $r){
    $idretorno = recuperar_id();
    
    var_dump(insere_retorno($idretorno,$r['retorno_lyceum']));
-}*/
+}/*
 
-$lista = lista_integrados();
+
 //var_dump($lista);
 
-var_dump(abaris_getDocumentBySearch($auth,'Documentos Pessoais - Registro', $lista));
 
+
+
+//var_dump(abaris_getDocumentBySearch($auth,'Documentos Pessoais - Registro', $lista));
 //$listar = insere_integracao($retorno);
 //ar_dump($listar);
 
