@@ -1,5 +1,6 @@
 <?php
 
+//namespace IntegracaoDiplomaDigital;
 
 function abaris_autenticacao(){
 

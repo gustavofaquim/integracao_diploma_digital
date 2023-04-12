@@ -1,5 +1,7 @@
 <?php
 
+
+
 // Bsuca de documentos atraves da busca avançada
 function abaris_getDocumentBySearch($auth,$tipoDoc, $excecoes){
     // Inicia o CURL

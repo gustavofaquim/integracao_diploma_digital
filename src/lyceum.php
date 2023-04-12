@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 function lyceum_listaDiplomaPorAluno($aluno, $cpf){
     $curl = curl_init();
 

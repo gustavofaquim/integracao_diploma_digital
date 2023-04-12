@@ -1,4 +1,7 @@
 <?php
+
+
+
 include 'lyceum.php';
 include 'abaris.php';
 include '../db/database.php';

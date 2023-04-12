@@ -1,5 +1,11 @@
 <?php
-include '../view/inicio.php';
+
+
+
+
+
+//use IntegracaoDiplomaDigital\inicio;
+include '../view/template/inicio.php';
 ?>
 
 
