@@ -7,6 +7,7 @@ function abaris_autenticacao(){
 
     $autenticacao = json_decode(file_get_contents('../conf/conf.json'));
     
+    
     $user = $autenticacao->user;
     $pass = $autenticacao->password;
 
@@ -48,6 +49,11 @@ function abaris_autenticacao(){
     // Imprime o resultado da requisição
     // echo $response;
     
-    return json_decode($response)->rsaKey;
+    if(!strpos($response, 'error')){
+        return json_decode($response)->rsaKey;
+    }else{
+        return null;
+    }
+    
 }
 

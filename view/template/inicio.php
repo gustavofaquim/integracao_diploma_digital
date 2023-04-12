@@ -15,7 +15,7 @@ include '../src/integracao.php';
 <div class="container">
     
 <seciton id="conteudo">
-    
+    <?php include '../view/home.php' ?>
 </seciton>
 </div>
 
@@ -35,6 +35,7 @@ $('#meuModal').on('shown.bs.modal', function () {
 </script>
 
 <script>
+    
     document.querySelectorAll('a').forEach(link => {
         const conteudo = document.getElementById('conteudo')
 
