@@ -71,6 +71,14 @@ nav li{
     display: block;
 }
 
-.container-integracoes a{
+.container-integracoes button{
     border-radius: 30px;
+}
+
+#card-lyceum{
+    border-left: 2px solid #1E90FF;
+}
+
+#card-abaris{
+    border-left: 2px solid #32CD32;
 }

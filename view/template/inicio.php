@@ -47,4 +47,36 @@ $('#meuModal').on('shown.bs.modal', function () {
     })
 </script>
 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    
+    let x = {
+        'op': 'true'
+    }
+    let dados = JSON.stringify(x)
+    
+    function dispara_lyceum(){
+
+        var frm = $('#dispara-lyceum');
+
+        frm.submit(function(ev){
+            $.ajax({
+                url: '../view/home.php',
+                type: 'POST',
+                dataType: "json",
+                data: {data: dados},
+                sucess: function(result){
+                    console.log('Deu certooo')
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert("Erro! " + errorThrown + jqXHR + textStatus );
+                    console.log(errorThrown)
+                }
+            }) 
+            ev.preventDefault();
+        })
+    }
+
+</script>
+
 <?php include "footer.php"; ?>
