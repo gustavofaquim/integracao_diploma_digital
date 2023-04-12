@@ -130,7 +130,7 @@ function lista_integrados(){
 
         //$query = $Conexao->query("SELECT CPF, nome_aluno FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao WHERE i.tentar_novamente <> 'S' --AND MSG NOT LIKE '%não cadastrada%' ");
         
-        $result = $con->executeQuery("SELECT CPF, nome_aluno FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao WHERE i.tentar_novamente <> 'S' --AND MSG NOT LIKE '%não cadastrada%' ");
+        $result = $con->executeQuery("SELECT i.idintegracao, sigla_instituicao, CPF, nome_aluno, data, msg FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao ORDER BY i.idintegracao DESC  --AND MSG NOT LIKE '%não cadastrada%' ");
 
         $result = $result->fetchAll(PDO::FETCH_OBJ);
 
@@ -139,8 +139,12 @@ function lista_integrados(){
         foreach($result as $id => $objeto){
             $list = [];
 
+            $list += ['ID' => $objeto->idintegracao];
+            $list += ['SIGLA' => $objeto->sigla_instituicao];
             $list += ['CPF' => $objeto->CPF];
             $list += ['NOME' => $objeto->nome_aluno];
+            $list += ['DATA' => (new \DateTimeImmutable($objeto->data))->format('d/m/y')];
+            $list += ['MSG' => $objeto->msg];
 
             $lista[] = $list;
         }

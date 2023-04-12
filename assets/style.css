@@ -1,0 +1,76 @@
+
+
+nav{
+    background-color: #ffffff;
+    box-shadow: 2px 7px 13px -7px rgba(145,142,145,1);
+    width: 100% !important;
+}
+
+nav li{
+    padding: 20px;
+    font-size: 13pt;
+}
+
+#conteudo{
+    display: flex;
+    margin-top: 50px;
+}
+
+#table{
+    margin: auto;
+    width: 1200px;
+    max-width: 1400px;
+}
+
+#table tr{
+    vertical-align: middle;
+    text-align: center;
+    font-size: 12pt;
+}
+
+#table  #msg{
+    text-align: left;
+}
+
+#table #nome{
+   width: 300px !important;
+   text-align: left;
+}
+
+#modalExemplo .modal-header{
+    border-bottom: 0px !important;
+    text-align: center !important;
+}
+
+#modalExemplo button {
+    background-color: #FFFFFF;
+    border: 0px;
+}
+
+#modalExemplo button i{
+    background-color: rgb(255, 255, 255);
+    color: red;
+    border: 0px;
+    font-size: 25px;
+}
+
+#modalExemplo button i:hover{
+    color: rgb(197, 11, 11);
+}
+
+
+#modal-lyceum{
+    width: 1000px;
+}
+
+.home{
+    display: block;
+}
+.container-integracoes{
+    margin-top: 40px;
+    display: block;
+}
+
+.container-integracoes a{
+    border-radius: 30px;
+}

@@ -12,6 +12,6 @@
     -> extension=php_pdo_sqlsrv_73_ts_x64.dll <br>
     -> extension=php_sqlsrv_73_ts_x64.dll <br>
 
--> Composer instalado e configurado
-    -> composer init
-    -> composer dump-autoload
+-> NPM instaldo e configurado
+    -> npm init
+    -> npm install node-sass
