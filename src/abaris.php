@@ -97,6 +97,8 @@ function abaris_novoDocumento($auth, $diretorioArquivo, $nomeArquivo, $diplomaAl
     $url = 'https://documents.abaris.com.br/api/v1/document';
 
 
+
+
     //Cabecalhos
     $headers = [
         'x-api-key:'.$auth,

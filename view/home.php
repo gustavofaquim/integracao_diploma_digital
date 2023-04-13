@@ -22,7 +22,7 @@ $auth = abaris_autenticacao();
                 <h5 class="card-title">Lyceum-Ábaris</h5>
                 <p class="card-text">Inicia  o processo que consulta o XML dos documentos no Ábaris e faz o upload no Lyceum.</p>
                 <form id='dispara-lyceum'>
-                    <button class="btn btn-primary" onclick="dispara_lyceum()"><i class="fa-solid fa-play"></i></button>
+                    <button class="btn btn-primary" id='btn-lyceum' onclick="dispara('lyceum')"><i class="fa-solid fa-play" id='btn-icon-lyceum'></i></button>
                 </form>
                
             </div>
@@ -33,23 +33,15 @@ $auth = abaris_autenticacao();
             <div class="card" id="card-abaris">
             <div class="card-body">
                 <h5 class="card-title">Ábaris-Lyceum</h5>
-                <p class="card-text">Inicia o processo que bsuca o XML assinado no Lyceum e realiza o upload no Ábaris.</p>
-                <a href="#" class="btn btn-primary"><i class="fa-solid fa-play"></i></a>
+                <p class="card-text">Inicia o processo que busca o XML dos doscumentos assinado no Lyceum e realiza o upload no Ábaris.  </p>
+                <form id='dispara-abaris'>
+                    <button class="btn btn-primary" id='btn-abaris' onclick="dispara('abaris')"><i class="fa-solid fa-play" id='btn-icon-abaris'></i></button>
+                </form>
             </div>
             </div>
         </div>
         </div>
     </div>
 </div>
-
-
-<?php
-
-   
-    var_dump($_POST);
-    
-
-?>
-
 
 

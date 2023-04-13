@@ -82,3 +82,47 @@ nav li{
 #card-abaris{
     border-left: 2px solid #32CD32;
 }
+
+
+
+
+
+/* Define a animação de carregamento */
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Adiciona a animação de carregamento à classe .loading */
+.loading{
+    background-color: #FBB635;
+}
+.loading::after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  border-top-color: #000;
+  animation: loading 1s ease-in-out infinite;
+  margin: auto;
+  margin-top: -20px;
+  margin-left: -5px
+}
+
+/* Define a posição do ícone de carregamento */
+button.loading {
+  position: relative;
+}
+
+button.loading .loading::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

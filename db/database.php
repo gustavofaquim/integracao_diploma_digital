@@ -163,6 +163,42 @@ function lista_integrados(){
       return $response;
 }
 
+function lista_diplomas_finalizados(){
+    try{
+        //$Conexao = Conexao::getConnection();
+        $con = new Database();
+
+        //$query = $Conexao->query("SELECT CPF, nome_aluno FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao WHERE i.tentar_novamente <> 'S' --AND MSG NOT LIKE '%não cadastrada%' ");
+        
+        $result = $con->executeQuery("SELECT ALUNO_ID, ALUNO_CPF FROM [LYCEUM].[DBO].[LY_DIPLOMA_DIGITAL] WHERE TENANT = 'Lyceum Externa'");
+
+        $result = $result->fetchAll(PDO::FETCH_OBJ);
+
+        $lista = [];
+
+        foreach($result as $id => $objeto){
+            $list = [];
+
+            $list += ['aluno' => $objeto->ALUNO_ID];
+            $list += ['cpf' => $objeto->ALUNO_CPF];
+
+            $lista[] = $list;
+        }
+
+        $response = $lista;
+
+        
+
+    }catch(Exception $e){
+    
+        // echo $e->getMessage();
+         $response =  $e->getMessage();
+    
+      }
+
+      return $response;
+}
+
 
 
 

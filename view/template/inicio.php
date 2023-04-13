@@ -35,7 +35,6 @@ $('#meuModal').on('shown.bs.modal', function () {
 </script>
 
 <script>
-    
     document.querySelectorAll('a').forEach(link => {
         const conteudo = document.getElementById('conteudo')
 
@@ -51,32 +50,58 @@ $('#meuModal').on('shown.bs.modal', function () {
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
     
-    let x = {
-        'op': 'true'
-    }
-    let dados = JSON.stringify(x)
+/*let x = {
+    'op': 'true'
+}
+let dados = JSON.stringify(x)*/
+
     
-    function dispara_lyceum(){
+function dispara(sistema){
 
-        var frm = $('#dispara-lyceum');
+    let dados = JSON.stringify(sistema)
 
-        frm.submit(function(ev){
-            $.ajax({
-                url: '../view/home.php',
-                type: 'POST',
-                dataType: "json",
-                data: {data: dados},
-                sucess: function(result){
-                    console.log('Deu certooo')
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                    alert("Erro! " + errorThrown + jqXHR + textStatus );
-                    console.log(errorThrown)
-                }
-            }) 
-            ev.preventDefault();
-        })
-    }
+    var frm = $('#dispara-'+sistema);
+    
+    frm.submit(function(ev){
+        
+        var button = $('#btn-'+sistema);
+        button.addClass('loading');  // Adiciona a classe .loading ao botão
+        
+        $.ajax({
+            url: '../src/dispara_integracao.php',
+            //url: '../view/home.php',
+            type: 'POST',
+            dataType: "json",
+            data: {data: dados},
+            beforeSend: function(){
+            // $('#btn-lyceum').css({'background-color':, '#FBB635', 'border':, '1px solid #FBB635'});
+                $('#btn-'+sistema).css({
+                    'background-color': '#FBB635',
+                    'border': '1px solid #FBB635'
+                });
+            },
+            complete: function(){
+                $('#btn-'+sistema).css({
+                    'background-color': '',
+                    'border': ''
+                });
+                button.removeClass('loading'); // Remove a classe .loading do botão
+            },
+            success: function(result){
+                console.log(result)
+                //alert("Deuuu");
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                //alert("Erro! " + errorThrown + jqXHR + textStatus );
+                console.log(errorThrown)
+            }
+        }) 
+        ev.preventDefault();
+       
+    })
+}
+
+
 
 </script>
 

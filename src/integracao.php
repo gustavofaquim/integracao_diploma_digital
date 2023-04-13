@@ -19,6 +19,7 @@ function dispara_registro_lyceum($auth){
     // Lista dos documentos que já foram integrados no Lyceum
     $lista_excecoes = lista_integrados();
     
+    
 
     $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $lista_excecoes));
     $reponse = array();
@@ -45,7 +46,13 @@ function dispara_registro_lyceum($auth){
         
      }
     
-    return $response;
+    if(isset($response)){
+        return $response;
+    }
+    else{
+        return 'Sem dados para integrar no momento';
+    }
+    
 }
 
 
@@ -56,25 +63,48 @@ function dispara_registro_lyceum($auth){
  *      3º. Com o XML, cria o arquivo .XML no diretório 'docs';
  *      4º. Chama o método do Ábaris que cria um novo documento;
  */
-function dispara_upload_abaris($auth, $aluno,$cpf){
+function dispara_upload_abaris($auth){
 
-    $diplomaAluno = lyceum_listaDiplomaPorAluno($aluno, $cpf);
+    $lista_diplomas_finalizados = lista_diplomas_finalizados();
+
+    //var_dump($lista_diplomas_finalizados[0]['aluno']);
+    //exit();
+
+    $reponse = array();
+    foreach($lista_diplomas_finalizados as $diplomas){
+
+        $aluno = $diplomas['aluno'];
+        $cpf = $diplomas['cpf'];
+
+        $diplomaAluno = lyceum_listaDiplomaPorAluno($aluno, $cpf);
     
-    $codValidacao = json_decode($diplomaAluno)[0]->cod_validacao;
+        $codValidacao = json_decode($diplomaAluno)[0]->cod_validacao;
 
-    $xmlLyceum = lyceum_obterXmlDiploma($codValidacao);
+        $xmlLyceum = lyceum_obterXmlDiploma($codValidacao);
 
-    $diretorioArquivo = 'docs/'.(str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
-    $nomeArquivo = (str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
+
+        $novoXML = new SimpleXMLElement($xmlLyceum);
+
+        $diretorioArquivo = '../docs/'.(str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
+        $nomeArquivo = (str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
+        
+        $arquivo = fopen($diretorioArquivo,'w+');
+
+        fwrite($arquivo, $xmlLyceum);
+        fclose($arquivo);
+
+
+        $novoDoc = abaris_novoDocumento($auth, $diretorioArquivo, $nomeArquivo, $diplomaAluno);
+        $response[] = $novoDoc;
+        
+    }
+
+    if(isset($response)){
+        return $response;
+    }
+    else{
+        return 'Sem dados para integrar no momento';
+    }
     
-    $arquivo = fopen($diretorioArquivo,'w');
-    
-    fwrite($arquivo, $xmlLyceum);
-    fclose($arquivo);
-
-
-    $novoDoc = abaris_novoDocumento($auth, $diretorioArquivo, $nomeArquivo, $diplomaAluno);
-    
-    return $novoDoc; 
 }
 
