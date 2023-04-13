@@ -10,7 +10,18 @@ $auth = abaris_autenticacao();
 
     <div>
         <h1>Página Inicial</h1>
-        <h4>Código de Autenticação Ábaris: <?= $auth  ?></h4>
+        <?php 
+        
+            if($auth){
+                echo "<h3 id='icon-ativa'><i class='fa-solid fa-plug-circle-check'></i> Integração com os sistemas ativa.</h3>";
+                echo "<h5>Código de Autenticação Ábaris: ".$auth."</h5>";
+            }
+            else{
+                echo "<h3 id='icon-off'><i class='fa-solid fa-plug-circle-minus'></i> Poxa, parece que houve algum problema.</h3>";
+               
+            }
+        
+        ?>
     </div>
 
 
