@@ -47,7 +47,7 @@ $auth = abaris_autenticacao();
             <div class="card" id="card-abaris">
             <div class="card-body">
                 <h5 class="card-title">Ábaris-Lyceum</h5>
-                <p class="card-text">Inicia o processo que busca o XML dos doscumentos assinado no Lyceum e realiza o upload no Ábaris.  </p>
+                <p class="card-text">Inicia o processo que busca o XML dos documentos assinados no Lyceum e realiza o upload no Ábaris.  </p>
                 <form id='dispara-abaris'>
                     <button class="btn btn-primary btn-integracao" name='abaris' id='btn-abaris'><i class="fa-solid fa-play" id='btn-icon-abaris'></i></button>
                     <button id="loading-abaris" disabled style="display: none;"></button>

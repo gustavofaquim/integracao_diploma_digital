@@ -50,10 +50,6 @@ $('#meuModal').on('shown.bs.modal', function () {
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
     
-/*let x = {
-    'op': 'true'
-}
-let dados = JSON.stringify(x)*/
 
 $(".btn-integracao").click(function(event){
     
@@ -93,37 +89,27 @@ $(".btn-integracao").click(function(event){
                 button.show();
             },
             success: function(result){
-                msg.show();
+                console.log(result)
+                /*msg.show();
                 msg.addClass('div-success')
                 msg.append("<i class='fa-regular fa-face-smile-wink'></i> ")
                 msg.append(result);
                 setTimeout(function () {
                     msg.fadeOut(3000);
-                    setTimeout(function () {
-                        msg.remove()
-                        msg.hide()
-                    }, 1000);
-                }, 10000);
-              
-                
-                //alert("Deuuu");
+                }, 10000) 
+                msg.remove()*/
             },
             error: function(jqXHR, textStatus, errorThrown){
-                //alert("Erro! " + errorThrown + jqXHR + textStatus );
                 console.log(errorThrown)
-                msg.show();
+                /*msg.show();
                 msg.addClass('div-success')
                 msg.addClass('div-error')
-                msg.append("<i class='fa-regular fa-face-sad-tear'></i> ")
+                msg.append("<i class='fa-regular fa-face-sad-tear'></i>")
                 msg.append(errorThrown)
                 setTimeout(function () {
                     msg.fadeOut(3000);
-                    setTimeout(function () {
-                        msg.remove()
-                        msg.hide()
-                    }, 1000);
-                },10000);
-                
+                },10000)
+                msg.remove()*/
             }
         }) 
 
