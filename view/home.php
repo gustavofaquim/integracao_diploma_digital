@@ -20,8 +20,10 @@ $auth = abaris_autenticacao();
                 echo "<h3 id='icon-off'><i class='fa-solid fa-plug-circle-minus'></i> Poxa, parece que houve algum problema.</h3>";
                
             }
+            
         
         ?>
+        
     </div>
 
 
@@ -33,7 +35,8 @@ $auth = abaris_autenticacao();
                 <h5 class="card-title">Lyceum-Ábaris</h5>
                 <p class="card-text">Inicia  o processo que consulta o XML dos documentos no Ábaris e faz o upload no Lyceum.</p>
                 <form id='dispara-lyceum'>
-                    <button class="btn btn-primary btn-integracao" name='lyceum' id='btn-lyceum' onclick="dispara('lyceum')"><i class="fa-solid fa-play" id='btn-icon-lyceum'></i></button>
+                    <button class="btn btn-primary btn-integracao" name='lyceum' id='btn-lyceum'><i class="fa-solid fa-play" id='btn-icon-lyceum'></i></button>
+                    <button id="loading-lyceum" disabled style="display: none;"></button>
                 </form>
                
             </div>
@@ -46,12 +49,19 @@ $auth = abaris_autenticacao();
                 <h5 class="card-title">Ábaris-Lyceum</h5>
                 <p class="card-text">Inicia o processo que busca o XML dos doscumentos assinado no Lyceum e realiza o upload no Ábaris.  </p>
                 <form id='dispara-abaris'>
-                    <button class="btn btn-primary btn-integracao" value='teste' name='abaris' id='btn-abaris' onclick="dispara('abaris')"><i class="fa-solid fa-play" id='btn-icon-abaris'></i></button>
+                    <button class="btn btn-primary btn-integracao" name='abaris' id='btn-abaris'><i class="fa-solid fa-play" id='btn-icon-abaris'></i></button>
+                    <button id="loading-abaris" disabled style="display: none;"></button>
+                    <!--  -->
                 </form>
             </div>
             </div>
         </div>
         </div>
+
+        <div id="msg" class="alert" disabled style="display: none; role="alert"></div>
+
+        
+    </div>
     </div>
 </div>
 

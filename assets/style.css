@@ -1,5 +1,4 @@
 
-
 nav{
     background-color: #ffffff;
     box-shadow: 2px 7px 13px -7px rgba(145,142,145,1);
@@ -67,7 +66,7 @@ nav li{
     display: block;
 }
 .container-integracoes{
-    margin-top: 40px;
+    margin-top: 70px;
     display: block;
 }
 
@@ -92,6 +91,25 @@ nav li{
 }
 
 
+#msg{
+    display: block;
+    margin-top: 30px;
+    padding: 10px;
+    font-size: 18pt;
+    text-align: center;
+    width: 500px;
+    border-radius: 5px;
+}
+.div-success{
+    background-color:  #1ac6e094;
+}
+
+.div-error{
+    background-color: #B22222;
+    color: #fff;
+}
+
+
 /* Define a animação de carregamento */
 @keyframes loading {
   0% {
@@ -103,9 +121,25 @@ nav li{
 }
 
 /* Adiciona a animação de carregamento à classe .loading */
-.loading{
+
+#loading-lyceum{
+    width: 38px;
+    height: 38px;
+    padding: 6px 12px;
     background-color: #FBB635;
+    border: 0px solid;
+    padding: 25px 10px 6px 13px;
 }
+
+#loading-abaris{
+    width: 38px;
+    height: 38px;
+    padding: 6px 12px;
+    background-color: #FBB635;
+    border: 0px solid;
+    padding: 25px 10px 6px 13px;
+}
+
 .loading::after {
   content: "";
   display: block;
@@ -114,7 +148,7 @@ nav li{
   border-radius: 50%;
   border: 3px solid #fff;
   border-top-color: #000;
-  animation: loading 1s ease-in-out infinite;
+  animation: loading 1.5s ease-in-out infinite;
   margin: auto;
   margin-top: -20px;
   margin-left: -5px
@@ -122,7 +156,7 @@ nav li{
 
 /* Define a posição do ícone de carregamento */
 button.loading {
-  position: relative;
+  position: initial;
 }
 
 button.loading .loading::after {
