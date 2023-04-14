@@ -66,11 +66,47 @@ function dispara_upload_abaris($auth){
 
     $lista_diplomas_finalizados = lista_diplomas_finalizados();
 
-   // $excecoes = array();
+    $excecoes = array();
 
-    //$lista_abaris = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $excecoes,"XML do Diplomado"));
-   // $lista_documentos = $lista_abaris->documentos;
+    $lista_abaris = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $excecoes,"XML do Diplomado"));
+    
+    $lista_documentos = $lista_abaris->documentos;
 
+    foreach($lista_diplomas_finalizados as $diplomas){
+
+        $verifica_doc_duplicado = verifica_se_documento_existe($auth, $diplomas['cpf'],'XML do Diplomado');
+    
+        if(!$verifica_doc_duplicado){
+            
+            $aluno = $diplomas['aluno'];
+            $cpf = $diplomas['cpf'];
+                
+            $diplomaAluno = lyceum_listaDiplomaPorAluno($aluno, $cpf);
+
+            $codValidacao = json_decode($diplomaAluno)[0]->cod_validacao;
+
+            $xmlLyceum = lyceum_obterXmlDiploma($codValidacao);
+
+            $diretorioArquivo = '../docs/'.(str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
+            $nomeArquivo = (str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
+            
+            $arquivo = fopen($diretorioArquivo,'w+');
+
+            fwrite($arquivo, $xmlLyceum);
+            fclose($arquivo);
+
+
+            $novoDoc = abaris_novoDocumento($auth, $diretorioArquivo, $nomeArquivo, $diplomaAluno);
+            $response[] = $novoDoc;
+        }     
+    }
+    if(isset($response)){
+        return $response;
+    }
+    else{
+        return 'Sem dados para integrar no momento';
+    }
+ 
    // print_r($lista_documentos);
     //exit();
 
@@ -87,7 +123,7 @@ function dispara_upload_abaris($auth){
 
     exit();*/
    
-    $reponse = array();
+   /* $reponse = array();
     foreach($lista_diplomas_finalizados as $diplomas){
         
         $aluno = $diplomas['aluno'];
@@ -118,7 +154,7 @@ function dispara_upload_abaris($auth){
     }
     else{
         return 'Sem dados para integrar no momento';
-    }
+    }*/
     
 }
 

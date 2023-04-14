@@ -179,3 +179,29 @@ function api_abaris_teste(){
     // Imprime o resultado da requisição
     return $response;
 }
+
+
+function verifica_se_documento_existe($auth, $cpf, $tipoIndice){
+
+    $excecoes = array();
+
+    $lista_abaris = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $excecoes, $tipoIndice));
+    $lista_documentos = $lista_abaris->documentos;
+
+    $array_cpf = array();
+
+
+    foreach($lista_documentos as $list){
+        array_push($array_cpf ,$list->documentoIndice[4]->valor);
+    }
+
+   
+    if(in_array($cpf, $array_cpf)){
+        return true;
+    }else{
+        return false;
+    }
+
+   // return $array_cpf;
+
+}
