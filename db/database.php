@@ -198,7 +198,3 @@ function lista_diplomas_finalizados(){
 
       return $response;
 }
-
-
-
-

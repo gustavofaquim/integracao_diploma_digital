@@ -55,7 +55,47 @@ $('#meuModal').on('shown.bs.modal', function () {
 }
 let dados = JSON.stringify(x)*/
 
+$(".btn-integracao").click(function(event){
     
+    let sistema = $(this).attr('name');
+    let dados = JSON.stringify(sistema)
+
+    var button = $('#btn-'+sistema)
+    button.addClass('loading')  // Adiciona a classe .loading ao botão
+
+    $.ajax({
+            url: '../src/dispara_integracao.php',
+            //url: '../view/home.php',
+            type: 'POST',
+            dataType: "json",
+            data: {data: dados},
+            beforeSend: function(){
+            // $('#btn-lyceum').css({'background-color':, '#FBB635', 'border':, '1px solid #FBB635'});
+                $('#btn-'+sistema).css({
+                    'background-color': '#FBB635',
+                    'border': '1px solid #FBB635'
+                });
+            },
+            complete: function(){
+                $('#btn-'+sistema).css({
+                    'background-color': '',
+                    'border': ''
+                });
+                button.removeClass('loading'); // Remove a classe .loading do botão
+            },
+            success: function(result){
+                console.log(result)
+                //alert("Deuuu");
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                //alert("Erro! " + errorThrown + jqXHR + textStatus );
+                console.log(errorThrown)
+            }
+        }) 
+
+    event.preventDefault()
+});  
+/*
 function dispara(sistema){
 
     let dados = JSON.stringify(sistema)
@@ -97,9 +137,9 @@ function dispara(sistema){
             }
         }) 
         ev.preventDefault();
-       
     })
-}
+    
+}*/
 
 
 

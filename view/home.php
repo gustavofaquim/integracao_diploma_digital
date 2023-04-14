@@ -14,7 +14,7 @@ $auth = abaris_autenticacao();
         
             if($auth){
                 echo "<h3 id='icon-ativa'><i class='fa-solid fa-plug-circle-check'></i> Integração com os sistemas ativa.</h3>";
-                echo "<h5>Código de Autenticação Ábaris: ".$auth."</h5>";
+               // echo "<h5>Autenticação da Sessão: ".$auth."</h5>";
             }
             else{
                 echo "<h3 id='icon-off'><i class='fa-solid fa-plug-circle-minus'></i> Poxa, parece que houve algum problema.</h3>";
@@ -33,7 +33,7 @@ $auth = abaris_autenticacao();
                 <h5 class="card-title">Lyceum-Ábaris</h5>
                 <p class="card-text">Inicia  o processo que consulta o XML dos documentos no Ábaris e faz o upload no Lyceum.</p>
                 <form id='dispara-lyceum'>
-                    <button class="btn btn-primary" id='btn-lyceum' onclick="dispara('lyceum')"><i class="fa-solid fa-play" id='btn-icon-lyceum'></i></button>
+                    <button class="btn btn-primary btn-integracao" name='lyceum' id='btn-lyceum' onclick="dispara('lyceum')"><i class="fa-solid fa-play" id='btn-icon-lyceum'></i></button>
                 </form>
                
             </div>
@@ -46,7 +46,7 @@ $auth = abaris_autenticacao();
                 <h5 class="card-title">Ábaris-Lyceum</h5>
                 <p class="card-text">Inicia o processo que busca o XML dos doscumentos assinado no Lyceum e realiza o upload no Ábaris.  </p>
                 <form id='dispara-abaris'>
-                    <button class="btn btn-primary" id='btn-abaris' onclick="dispara('abaris')"><i class="fa-solid fa-play" id='btn-icon-abaris'></i></button>
+                    <button class="btn btn-primary btn-integracao" value='teste' name='abaris' id='btn-abaris' onclick="dispara('abaris')"><i class="fa-solid fa-play" id='btn-icon-abaris'></i></button>
                 </form>
             </div>
             </div>

@@ -12,6 +12,3 @@
     -> extension=php_pdo_sqlsrv_73_ts_x64.dll <br>
     -> extension=php_sqlsrv_73_ts_x64.dll <br>
 
--> NPM instaldo e configurado
-    -> npm init
-    -> npm install node-sass

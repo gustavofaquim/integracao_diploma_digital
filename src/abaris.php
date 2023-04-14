@@ -3,7 +3,7 @@
 
 
 // Bsuca de documentos atraves da busca avançada
-function abaris_getDocumentBySearch($auth,$tipoDoc, $excecoes){
+function abaris_getDocumentBySearch($auth,$tipoDoc, $excecoes,$tipoIndice){
     // Inicia o CURL
     $curl = curl_init();
 
@@ -17,7 +17,7 @@ function abaris_getDocumentBySearch($auth,$tipoDoc, $excecoes){
 
     
     $indice = array();
-    $indice[] = array("nome" => "Tipo de Documentos","operador" => "=","valor" => "XML Documentação Acadêmica");
+    $indice[] = array("nome" => "Tipo de Documentos","operador" => "=","valor" => $tipoIndice);
     
     
     foreach($excecoes as $ex){

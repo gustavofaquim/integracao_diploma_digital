@@ -19,9 +19,8 @@ function dispara_registro_lyceum($auth){
     // Lista dos documentos que já foram integrados no Lyceum
     $lista_excecoes = lista_integrados();
     
-    
 
-    $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $lista_excecoes));
+    $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica'));
     $reponse = array();
     $docs = $search->documentos;
     foreach($docs as $doc){
@@ -67,23 +66,38 @@ function dispara_upload_abaris($auth){
 
     $lista_diplomas_finalizados = lista_diplomas_finalizados();
 
-    //var_dump($lista_diplomas_finalizados[0]['aluno']);
+   // $excecoes = array();
+
+    //$lista_abaris = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $excecoes,"XML do Diplomado"));
+   // $lista_documentos = $lista_abaris->documentos;
+
+   // print_r($lista_documentos);
     //exit();
 
+
+    /*echo "<pre>";
+        var_dump($lista_diplomas_finalizados);
+    echo "</pre>";
+
+    echo "<br><br> ----------------------------------------------------------------------------------------------- <br><br>";
+
+    echo "<pre>";
+        var_dump($lista_documentos);
+    echo "</pre>";
+
+    exit();*/
+   
     $reponse = array();
     foreach($lista_diplomas_finalizados as $diplomas){
-
+        
         $aluno = $diplomas['aluno'];
         $cpf = $diplomas['cpf'];
-
+            
         $diplomaAluno = lyceum_listaDiplomaPorAluno($aluno, $cpf);
-    
+
         $codValidacao = json_decode($diplomaAluno)[0]->cod_validacao;
 
         $xmlLyceum = lyceum_obterXmlDiploma($codValidacao);
-
-
-        $novoXML = new SimpleXMLElement($xmlLyceum);
 
         $diretorioArquivo = '../docs/'.(str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
         $nomeArquivo = (str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
@@ -96,7 +110,7 @@ function dispara_upload_abaris($auth){
 
         $novoDoc = abaris_novoDocumento($auth, $diretorioArquivo, $nomeArquivo, $diplomaAluno);
         $response[] = $novoDoc;
-        
+            
     }
 
     if(isset($response)){
