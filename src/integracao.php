@@ -66,6 +66,7 @@ function dispara_upload_abaris($auth){
 
     $lista_diplomas_finalizados = lista_diplomas_finalizados();
 
+
     $excecoes = array();
 
     $lista_abaris = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $excecoes,"XML do Diplomado"));
@@ -80,24 +81,35 @@ function dispara_upload_abaris($auth){
             
             $aluno = $diplomas['aluno'];
             $cpf = $diplomas['cpf'];
+
+           // var_dump($aluno, $cpf);
+           // exit();
                 
             $diplomaAluno = lyceum_listaDiplomaPorAluno($aluno, $cpf);
 
-            $codValidacao = json_decode($diplomaAluno)[0]->cod_validacao;
-
-            $xmlLyceum = lyceum_obterXmlDiploma($codValidacao);
-
-            $diretorioArquivo = '../docs/'.(str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
-            $nomeArquivo = (str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
+            if(isset(json_decode($diplomaAluno)->titulo)){
+                if(json_decode($diplomaAluno)->titulo != 'Não existe resultado para exibir.'){
+                    $codValidacao = json_decode($diplomaAluno)[0]->cod_validacao;
+                    $xmlLyceum = lyceum_obterXmlDiploma($codValidacao);
+    
+                    $diretorioArquivo = '../docs/'.(str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
+                    $nomeArquivo = (str_replace(" ","_",strtolower(json_decode($diplomaAluno)[0]->aluno_nome))).'.xml';
+                    
+                    $arquivo = fopen($diretorioArquivo,'w+');
+    
+                    fwrite($arquivo, $xmlLyceum);
+                    fclose($arquivo);
+    
+    
+                    $novoDoc = abaris_novoDocumento($auth, $diretorioArquivo, $nomeArquivo, $diplomaAluno);
+                    $response[] = $novoDoc;
+                }
+            }
             
-            $arquivo = fopen($diretorioArquivo,'w+');
-
-            fwrite($arquivo, $xmlLyceum);
-            fclose($arquivo);
-
-
-            $novoDoc = abaris_novoDocumento($auth, $diretorioArquivo, $nomeArquivo, $diplomaAluno);
-            $response[] = $novoDoc;
+            
+           // $codValidacao = json_decode($diplomaAluno)[0]->cod_validacao;
+        
+            
         }     
     }
     if(isset($response)){

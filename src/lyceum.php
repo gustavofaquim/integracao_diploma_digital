@@ -11,6 +11,7 @@ function lyceum_listaDiplomaPorAluno($aluno, $cpf){
     $headers = [
         'Authorization: Basic YXBpdXNlcjphcGl1c2VyQDEyMw=='
     ];
+    
 
     curl_setopt_array($curl,[
         CURLOPT_URL => $url,
