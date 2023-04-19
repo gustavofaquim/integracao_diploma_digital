@@ -13,11 +13,15 @@
 
         if($data == 'lyceum'){
             dispara_registro_lyceum($auth);
-            $retorno = 'Integração Lyceum realizada :)';
+            $retorno = 'Integração Lyceum realizada';
         }
         else if($data == 'abaris'){
             dispara_upload_abaris($auth);
-            $retorno = 'Integração Ábaris realizada :)';
+            $retorno = 'Integração Ábaris realizada';
+        }
+        else if($data == 'individual'){
+            //dispara_registro_lyceum($auth);
+            $retorno = 'Integração Lyceum realizada';
         }
         
         

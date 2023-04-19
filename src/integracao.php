@@ -23,10 +23,12 @@ function dispara_registro_lyceum($auth){
     $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica'));
     $reponse = array();
     $docs = $search->documentos;
+    
     foreach($docs as $doc){
         $dado = [];
        
-        $file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
+        //$file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
+        $file = json_decode(api_abaris_getDocumentByID($auth,'250560'));
 
         // Pega os indexadores do documento e adiciona no array.
         foreach($doc->documentoIndice as $indexador){

@@ -27,7 +27,9 @@ $auth = abaris_autenticacao();
 
 
     <div class="container-integracoes">
+    
         <div class="row">
+        <h3> Integração em Lote </h3>
         <div class="col-sm-6">
             <div class="card" id='card-lyceum'>
             <div class="card-body">
@@ -57,9 +59,7 @@ $auth = abaris_autenticacao();
         </div>
         </div>
 
-        <div class="alert" id="msg">
-            
-        </div>
+        <div class="alert" id="msg"> </div>
         
     </div>
     </div>

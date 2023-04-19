@@ -123,14 +123,20 @@ function insere_retorno($id, $msg){
 }
 
 
-function lista_integrados(){
+function lista_integrados($pagina){
     try{
         //$Conexao = Conexao::getConnection();
         $con = new Database();
 
         //$query = $Conexao->query("SELECT CPF, nome_aluno FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao WHERE i.tentar_novamente <> 'S' --AND MSG NOT LIKE '%não cadastrada%' ");
         
-        $result = $con->executeQuery("SELECT i.idintegracao, sigla_instituicao, CPF, nome_aluno, data, msg FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao ORDER BY i.idintegracao DESC  --AND MSG NOT LIKE '%não cadastrada%' ");
+        $limite = 15;
+        $inicio = ($pagina * $limite) - $limite;
+
+        $result = $con->executeQuery("SELECT i.idintegracao, sigla_instituicao, CPF, nome_aluno, data, msg FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao ORDER BY i.idintegracao DESC OFFSET " . $inicio . " ROWS FETCH NEXT ". $limite ." ROWS ONLY  --AND MSG NOT LIKE '%não cadastrada%' ");
+
+        $query_count  = $result->rowCount(PDO::FETCH_ASSOC);
+        $qtdPag = ceil($query_count/$limite);
 
         $result = $result->fetchAll(PDO::FETCH_OBJ);
 

@@ -71,7 +71,7 @@ nav li:hover{
     width: 1000px;
 }
 
-.home{
+.home, .listagem{
     display: block;
 }
 .container-integracoes{
@@ -173,4 +173,25 @@ button.loading .loading::after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+
+.paginador{
+    display: block;
+}
+
+
+.integracao-individual{
+    margin-top: 40px;
+    display: inline-block;
+    width: 100%;
+}
+
+.integracao-individual div{
+    max-width: 300px;
+    display: inline-block;
+}
+
+.integracao-individual button{
+    border-radius: 5px;
 }
