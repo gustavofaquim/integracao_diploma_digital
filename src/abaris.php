@@ -205,3 +205,34 @@ function verifica_se_documento_existe($auth, $cpf, $tipoIndice){
    // return $array_cpf;
 
 }
+
+
+function abaris_getDocumentBySearch_ArrayTable($auth,$tipoDoc, $excecoes,$tipoIndice){
+    
+    $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica'));
+    $reponse = array();
+    $docs = $search->documentos;
+    
+    foreach($docs as $doc){
+        $dado = [];
+       
+        $file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
+        //$file = json_decode(api_abaris_getDocumentByID($auth,'250560'));
+
+        // Pega os indexadores do documento e adiciona no array.
+        foreach($doc->documentoIndice as $indexador){
+            if($indexador->nomeIndice == "CPF" OR $indexador->nomeIndice == "NOME" OR  $indexador->nomeIndice == "MATRICULA" OR $indexador->nomeIndice == "Sigla Instituição"){
+                $dado += array(str_replace(" ", "_",strtolower(str_replace("ç", "c",str_replace("ã","a",$indexador->nomeIndice)))) => $indexador->valor);
+            }
+        }
+        
+        $response[] = $dado;
+       
+
+    }
+
+    var_dump($reponse);
+    exit();
+
+    return $response;
+}

@@ -1,4 +1,5 @@
 <?php 
+
 include '../src/auth.php';
 $auth = abaris_autenticacao();
 include '../src/abaris.php';
@@ -7,13 +8,8 @@ $pagina = (isset($_GET['p']))? $_GET['p'] : 1;
 
 $lista_excecoes = array();
 
-$lista_abaris = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica'));
+$lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica');
 
-$lista = $lista_abaris->documentos;
-echo "<pre>";
-var_dump($lista_abaris->documentos);
-echo "</pre>";
-exit();
 ?>
 
 <div class='listagem'>
@@ -24,8 +20,8 @@ exit();
         <th scope="col">#</th>
         <th scope="col">IES</th>
         <th scope="col">CPF</th>
+        <th scope="col">MATRICULA</th>
         <th scope="col">NOME</th>
-        <th scope="col">DATA</th>
         <th scope="col">LOGS</th>
       </tr>
     </thead>
@@ -33,13 +29,15 @@ exit();
     <?php 
    
     $cont = 0;
+    var_dump($lista_abaris);
     foreach($lista_abaris as $dado){
+      var_dump($dado);
       echo"<tr>";
         echo"<th scope='row'>".$dado['ID']."</th>";
-        echo"<td>".$dado['SIGLA']."</td>";
-        echo"<td>".$dado['CPF']."</td>";
-        echo"<td id='nome'>".$dado['nomeIndice']->valor."</td>";
-        echo"<td>".$dado['DATA']."</td>";
+        echo"<td>".$dado['sigla_instituicao']."</td>";
+        echo"<td>".$dado['cpf']."</td>";
+        echo"<td>".$dado['matricula']."</td>";
+        echo"<td id='nome'>".$dado['nome']."</td>";
         echo "<td> 
         <button type='button' id='btn".$dado['ID']."' name='btnModal' onclick='chamaModal(".$dado['MSG'].")' class='btn btn-outline-secondary btn-sm' data-toggle='modal' data-target='#modalExemplo'>
           <i class='fa-regular fa-file-lines'></i>

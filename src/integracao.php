@@ -27,8 +27,8 @@ function dispara_registro_lyceum($auth){
     foreach($docs as $doc){
         $dado = [];
        
-        //$file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
-        $file = json_decode(api_abaris_getDocumentByID($auth,'250560'));
+        $file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
+        //$file = json_decode(api_abaris_getDocumentByID($auth,'250560'));
 
         // Pega os indexadores do documento e adiciona no array.
         foreach($doc->documentoIndice as $indexador){
