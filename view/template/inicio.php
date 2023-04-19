@@ -27,13 +27,14 @@ $('#meuModal').on('shown.bs.modal', function () {
 
 </script> --> 
 
-
+<!-- 
 <script>
     function chamaModal(msg){
         document.getElementById("modal-conteudo").innerHTML = "<p>" + JSON.stringify(msg) + "</p>"     
 };
-</script>
+</script> -->
 
+<!-- 
 <script>
     document.querySelectorAll('a').forEach(link => {
         const conteudo = document.getElementById('conteudo')
@@ -46,11 +47,11 @@ $('#meuModal').on('shown.bs.modal', function () {
                 .then(html => conteudo.innerHTML = html)
         }
     })
-</script>
+</script> -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
-    
+<!-- 
+<script>   
 
 $(".btn-integracao").click(function(event){
     
@@ -162,9 +163,9 @@ function dispara(sistema){
     
 }*/
 
-</script>
+</script> -->
 
-
+<!--
 <script>
 $(function(){ // equivalente a $(document).ready(function(){
   $('.nav a').click(function(event) {
@@ -173,6 +174,6 @@ $(function(){ // equivalente a $(document).ready(function(){
     $(this).parent().addClass('active');
   });
 });
-</script>
+</script> -->
 
 <?php include "footer.php"; ?>
