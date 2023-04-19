@@ -57,8 +57,9 @@ $auth = abaris_autenticacao();
         </div>
         </div>
 
-        <div id="msg" class="alert" disabled style="display: none; role="alert"></div>
-
+        <div class="alert" id="msg">
+            
+        </div>
         
     </div>
     </div>

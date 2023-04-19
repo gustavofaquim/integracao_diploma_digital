@@ -8,7 +8,10 @@ $(".btn-integracao").click(function(event){
     let msg = $('#msg');
     //$('#btn-icon-'+sistema).hide();
     loadingButton.addClass('loading')  // Adiciona a classe .loading ao botão
-   
+    
+    $("#msg").hide();
+    $("#msg").empty()
+
 
     $.ajax({
             url: '../src/dispara_integracao.php',
@@ -37,28 +40,31 @@ $(".btn-integracao").click(function(event){
             },
             success: function(result){
                 console.log(result)
-                /*msg.show();
-                msg.addClass('div-success')
-                msg.append("<i class='fa-regular fa-face-smile-wink'></i> ")
-                msg.append(result);
-                setTimeout(function () {
-                    msg.fadeOut(3000);
-                }, 10000) 
-                msg.remove()*/
+
+                $("#msg").toggleClass('div-success')
+                $("#msg").append("<strong>Sucesso!</strong> " + result)
+                $("#msg").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#msg").slideUp(500);
+                })             
             },
             error: function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown)
-                /*msg.show();
-                msg.addClass('div-success')
-                msg.addClass('div-error')
-                msg.append("<i class='fa-regular fa-face-sad-tear'></i>")
-                msg.append(errorThrown)
-                setTimeout(function () {
-                    msg.fadeOut(3000);
-                },10000)
-                msg.remove()*/
+
+                $("#msg").toggleClass('div-error')
+                $("#msg").append("<strong>Error!</strong> " +  errorThrown)
+                $("#msg").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#msg").slideUp(500);
+                }); 
             }
         }) 
+
+
+        
+        $("#test").click(function showAlert() {
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#success-alert").slideUp(500);
+            });   
+        });
 
     event.preventDefault()
 });  
