@@ -45,7 +45,7 @@ $lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoai
         echo"<td id='nome'>".$dado['nome']."</td>";
         echo "<td> 
         <form id='dispara-abaris'>
-            <button class='btn btn-primary btn-teste' type='button' onclick='integracao_individual_lyceum(".$dado['id'].")' name='abaris-individual' id='".$dado['id']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
+            <button class='btn btn-primary btn-teste' type='button' onclick='integracao_individual_lyceum(".json_encode($dado).")' name='abaris-individual' id='".$dado['id']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
             <button id='loading-abaris' disabled style='display: none;'></button>
         </form>
         </td>";

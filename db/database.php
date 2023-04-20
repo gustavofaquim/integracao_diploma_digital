@@ -24,29 +24,6 @@ function recuperar_id(){
 
 
 
-
-function listar(){
-    try{
-        $Conexao = Conexao::getConnection();
-        $query = $Conexao->query("SELECT TOP 10 ALUNO FROM LY_ALUNO");
-        $produtos = $query->fetchAll();
-    
-       // var_dump($produtos);
-        $response = $produtos;
-    
-     }catch(Exception $e){
-    
-       // echo $e->getMessage();
-        $response = $e->getMessage();
-        exit;
-    
-     }
-
-     return $response;
-    
-}
-
-
 function insere_integracao($dados){
     
     try{

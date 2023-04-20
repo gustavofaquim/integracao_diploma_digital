@@ -66,11 +66,13 @@ $(".btn-integracao").click(function(event){
     event.preventDefault()
 });  
 
-function integracao_individual_lyceum(id){
+function integracao_individual_lyceum(d){
     
-    let array = { 'individual': id.toString() }
+    //let array = { 'individual': id.toString() }
 
-    let dados = JSON.stringify(array)
+    let dados = d
+
+    //console.log(d)
 
 
     $.ajax({
