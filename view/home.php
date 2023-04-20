@@ -11,18 +11,14 @@ $auth = abaris_autenticacao();
     <div>
         <h1>Página Inicial</h1>
         <?php 
-        
             if($auth){
                 echo "<h3 id='icon-ativa'><i class='fa-solid fa-plug-circle-check'></i> Integração com os sistemas ativa.</h3>";
                // echo "<h5>Autenticação da Sessão: ".$auth."</h5>";
             }
             else{
                 echo "<h3 id='icon-off'><i class='fa-solid fa-plug-circle-minus'></i> Poxa, parece que houve algum problema.</h3>";
-               
             }
-            
         ?>
-        
     </div>
 
 
@@ -52,7 +48,6 @@ $auth = abaris_autenticacao();
                 <form id='dispara-abaris'>
                     <button class="btn btn-primary btn-integracao" name='abaris' id='btn-abaris'><i class="fa-solid fa-play" id='btn-icon-abaris'></i></button>
                     <button id="loading-abaris" disabled style="display: none;"></button>
-                    <!--  -->
                 </form>
             </div>
             </div>

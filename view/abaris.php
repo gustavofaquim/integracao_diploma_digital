@@ -2,6 +2,7 @@
 
 include '../src/auth.php';
 $auth = abaris_autenticacao();
+
 include '../src/abaris.php';
 
 $pagina = (isset($_GET['p']))? $_GET['p'] : 1; 
@@ -9,10 +10,14 @@ $pagina = (isset($_GET['p']))? $_GET['p'] : 1;
 $lista_excecoes = array();
 
 $lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica');
+//var_dump($lista_abaris);
+//exit();
+
 
 ?>
 
 <div class='listagem'>
+    <h2>XML Documentação Acadêmica</h2>
 <div id='table'>
   <table class="table table-striped table-responsive">
     <thead class="thead-dark">
@@ -22,26 +27,33 @@ $lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoai
         <th scope="col">CPF</th>
         <th scope="col">MATRICULA</th>
         <th scope="col">NOME</th>
-        <th scope="col">LOGS</th>
+        <th scope="col">integração</th>
       </tr>
     </thead>
     <tbody></tbody>
     <?php 
    
     $cont = 0;
-    var_dump($lista_abaris);
+    
     foreach($lista_abaris as $dado){
-      var_dump($dado);
+      //var_dump($dado);
+
       echo"<tr>";
-        echo"<th scope='row'>".$dado['ID']."</th>";
+        echo"<th scope='row'> </th>";
         echo"<td>".$dado['sigla_instituicao']."</td>";
         echo"<td>".$dado['cpf']."</td>";
         echo"<td>".$dado['matricula']."</td>";
         echo"<td id='nome'>".$dado['nome']."</td>";
         echo "<td> 
+        <form id='dispara-abaris'>
+            <button class='btn btn-primary btn-integracao' name='abaris-individual' id='".$dado['cpf']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
+            <button id='loading-abaris' disabled style='display: none;'></button>
+        </form>
+        </td>";
+        /*echo "<td> 
         <button type='button' id='btn".$dado['ID']."' name='btnModal' onclick='chamaModal(".$dado['MSG'].")' class='btn btn-outline-secondary btn-sm' data-toggle='modal' data-target='#modalExemplo'>
           <i class='fa-regular fa-file-lines'></i>
-        </button> </td>";
+        </button> </td>"; */
         //echo"<td id='msg'>".$dado['MSG']."</td>";
       echo"</tr>";
     }
@@ -50,6 +62,11 @@ $lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoai
   </table>
 
 </div>
+
+<form id='dispara-abaris'>
+        <button class='btn btn-primary btn-integracao' name='abaris-individual' id='".$dado['cpf']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
+        <button id='loading-abaris' disabled style='display: none;'></button>
+</form>
 
 <!-- <div class='paginador'>
 
@@ -72,25 +89,5 @@ $lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoai
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered"  tabindex="-1" role="dialog">
-    <div class="modal-content" id="modal-lyceum">
-      <div class="modal-header text-center">
-        <h5 class="modal-title" id="exampleModalLabel" >Retorno Lyceum</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-          <i class="fa-solid fa-circle-xmark"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="modal-conteudo">
-
-        </div>
-       
-       
-      </div>
-    </div>
-  </div>
-</div>
 
 

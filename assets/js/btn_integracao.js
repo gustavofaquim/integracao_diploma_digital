@@ -1,12 +1,15 @@
 $(".btn-integracao").click(function(event){
     
     let sistema = $(this).attr('name');
+    let cpf = $(this).attr('id')
+
+    alert(cpf)
+
     let dados = JSON.stringify(sistema)
 
     let button = $('#btn-'+sistema)
     let loadingButton = $('#loading-'+sistema);
-    let msg = $('#msg');
-    //$('#btn-icon-'+sistema).hide();
+    
     loadingButton.addClass('loading')  // Adiciona a classe .loading ao botão
     
     $("#msg").hide();
@@ -14,7 +17,7 @@ $(".btn-integracao").click(function(event){
 
 
     $.ajax({
-            url: '../src/dispara_integracao.php',
+            url: '../src/dipara_integracao.php',
             //url: '../view/home.php',
             type: 'POST',
             dataType: "json",
@@ -50,15 +53,13 @@ $(".btn-integracao").click(function(event){
             error: function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown)
 
-                $("#msg").toggleClass('div-error')
+                $("#msg").toggleClass('div-success')
                 $("#msg").append("<strong>Error!</strong> " +  errorThrown)
                 $("#msg").fadeTo(2000, 500).slideUp(500, function(){
                     $("#msg").slideUp(500);
                 }); 
             }
         }) 
-
-
         
         $("#test").click(function showAlert() {
             $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){

@@ -21,7 +21,7 @@
             <a class="nav-link menu" href="../view/integracoes.php"><i class="fa-solid fa-display"></i> Consulta Integrações</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link menu" href="../view/abaris.php"><i class="fa-solid fa-display"></i> Àbaris</a>
+            <a class="nav-link menu" href="../view/abaris.php"><i class="fa-solid fa-display"></i> Ábaris</a>
         </li>
         <li class="nav-item">
             <a class="nav-link menu" href="../view/lyceum.php"><i class="fa-solid fa-display"></i> Lyceum</a>

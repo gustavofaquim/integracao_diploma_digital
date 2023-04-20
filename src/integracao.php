@@ -17,7 +17,7 @@ header('Content-Type: text/html; charset=utf-8');
 function dispara_registro_lyceum($auth){
 
     // Lista dos documentos que já foram integrados no Lyceum
-    $lista_excecoes = lista_integrados();
+    $lista_excecoes = lista_integrados(1);
     
 
     $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica'));
