@@ -21,9 +21,9 @@
             $retorno = 'Integração Ábaris realizada';
         }
         else if(isset($data->individual)){
-            $cpf = $data->individual;
+            $id = $data->individual;
             
-            $retorno = dispara_registro_individual_lyceum($auth, $cpf);
+            $retorno = dispara_registro_individual_lyceum($auth, $id);
         }
         
         

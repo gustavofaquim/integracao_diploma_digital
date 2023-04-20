@@ -66,13 +66,12 @@ $(".btn-integracao").click(function(event){
     event.preventDefault()
 });  
 
-function teste(id){
+function integracao_individual_lyceum(id){
     
     let array = { 'individual': id.toString() }
 
     let dados = JSON.stringify(array)
 
-    //alert(dados)
 
     $.ajax({
         url: '../src/dispara_integracao.php',

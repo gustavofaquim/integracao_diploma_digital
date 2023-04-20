@@ -106,6 +106,9 @@ function abaris_getDocumentBySearchCPF($auth,$tipoDoc, $excecoes,$tipoIndice, $c
      // Executa a requisição
      $response = curl_exec($curl);
 
+     var_dump($response);
+     exit();
+
      // Fecha a conexão
      curl_close($curl);
 
@@ -285,16 +288,19 @@ function abaris_getDocumentBySearch_ArrayTable($auth,$tipoDoc, $excecoes,$tipoIn
         //$file = json_decode(api_abaris_getDocumentByID($auth,'250560'));
 
         // Pega os indexadores do documento e adiciona no array.
+        $dado += array('id' => $doc->id);
         foreach($doc->documentoIndice as $indexador){
+           
             if($indexador->nomeIndice == "CPF" OR $indexador->nomeIndice == "NOME" OR  $indexador->nomeIndice == "MATRICULA" OR $indexador->nomeIndice == "Sigla Instituição"){
                 $dado += array(str_replace(" ", "_",strtolower(str_replace("ç", "c",str_replace("ã","a",$indexador->nomeIndice)))) => $indexador->valor);
             }
-        }
-        $dado += array('retorno_lyceum' => '');
-        $response[] = $dado;
-       
 
+        
+        }
+        //$dado += array('retorno_lyceum' => '');
+        $response[] = $dado;
     }
+
 
     return $response;
 }

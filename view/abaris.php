@@ -10,8 +10,7 @@ $pagina = (isset($_GET['p']))? $_GET['p'] : 1;
 $lista_excecoes = array();
 
 $lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica');
-//var_dump($lista_abaris);
-//exit();
+
 
 
 ?>
@@ -39,14 +38,14 @@ $lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoai
       //var_dump($dado);
 
       echo"<tr>";
-        echo"<th scope='row'> </th>";
+        echo"<th scope='row'>".$dado['id']."</th>";
         echo"<td>".$dado['sigla_instituicao']."</td>";
         echo"<td>".$dado['cpf']."</td>";
         echo"<td>".$dado['matricula']."</td>";
         echo"<td id='nome'>".$dado['nome']."</td>";
         echo "<td> 
         <form id='dispara-abaris'>
-            <button class='btn btn-primary btn-teste' type='button' onclick='teste(".$dado['cpf'].")' name='abaris-individual' id='".$dado['cpf']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
+            <button class='btn btn-primary btn-teste' type='button' onclick='integracao_individual_lyceum(".$dado['id'].")' name='abaris-individual' id='".$dado['id']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
             <button id='loading-abaris' disabled style='display: none;'></button>
         </form>
         </td>";
