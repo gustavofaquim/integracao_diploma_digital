@@ -11,10 +11,10 @@ function abaris_autenticacao(){
     $user = $autenticacao->user;
     $pass = $autenticacao->password;
 
-
     // Inicia o CURL
     $curl = curl_init();
     
+    //$url = 'https://documents.abaris.com.br/api/v1/login';
     $url = 'https://documents.abaris.com.br/api/v1/login';
     
     //Cabecalhos
@@ -30,6 +30,7 @@ function abaris_autenticacao(){
     ];
     
     $json = json_encode($post);
+
     
     // Define as configurações  
     curl_setopt_array($curl,[
@@ -42,9 +43,16 @@ function abaris_autenticacao(){
     
     // Executa a requisição
     $response = curl_exec($curl);
+
     
+    
+
+
     // Fecha a conexão
     curl_close($curl);
+
+    
+
     
     // Imprime o resultado da requisição
     // echo $response;

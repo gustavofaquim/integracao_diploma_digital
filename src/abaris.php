@@ -55,7 +55,72 @@ function abaris_getDocumentBySearch($auth,$tipoDoc, $excecoes,$tipoIndice){
      // Imprime o resultado da requisição
   
      return $response;   
+} 
+
+
+
+// Bsuca de documentos atraves da busca avançada, passando o CPF 
+function abaris_getDocumentBySearchCPF($auth,$tipoDoc, $excecoes,$tipoIndice, $cpf){
+    // Inicia o CURL
+    $curl = curl_init();
+
+    $url = 'https://documents.abaris.com.br/api/v1/document/advanced-search';
+
+    //Cabecalhos
+    $headers = [
+        'x-api-key:'.$auth,
+        'Content-Type: application/json'
+    ];
+
+    
+    $indice = array();
+    $indice[] = array("nome" => "Tipo de Documentos","operador" => "=","valor" => $tipoIndice);
+    $indice[] = array("nome" => "CPF", "operador" => "=", "valor" => $cpf); 
+    
+    
+   /*foreach($excecoes as $ex){
+        $indice[] = array("nome" => "CPF", "operador" => "<>", "valor" => $ex["CPF"]);    
+    }*/
+  
+   $post = [
+       "nomes_tipodocumento" => [$tipoDoc],
+       "resultados_pagina" => 15000,
+       "resultado_inicial" => 0,
+       "dataDe" => "2023-04-01",
+       //"dataAte" => "2023-05-01T13:22:39.933Z",
+       "indiceBusca" =>  $indice
+   ];
+
+
+   $json = json_encode($post);
+
+
+    curl_setopt_array($curl,[
+        CURLOPT_URL => $url,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_POSTFIELDS => $json
+    ]);
+    
+     // Executa a requisição
+     $response = curl_exec($curl);
+
+     // Fecha a conexão
+     curl_close($curl);
+
+
+     // Imprime o resultado da requisição
+  
+     return $response;   
 }   
+
+
+
+
+
+
+
 
 
 function api_abaris_getDocumentByID($auth, $id){

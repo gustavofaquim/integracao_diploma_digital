@@ -11,6 +11,7 @@
 
         $data = json_decode($_POST['data']);
 
+
         if($data == 'lyceum'){
             dispara_registro_lyceum($auth);
             $retorno = 'Integração Lyceum realizada';
@@ -19,9 +20,10 @@
             dispara_upload_abaris($auth);
             $retorno = 'Integração Ábaris realizada';
         }
-        else if($data == 'individual'){
-            //dispara_registro_lyceum($auth);
-            $retorno = 'Integração Lyceum realizada';
+        else if(isset($data->individual)){
+            $cpf = $data->individual;
+            
+            $retorno = dispara_registro_individual_lyceum($auth, $cpf);
         }
         
         

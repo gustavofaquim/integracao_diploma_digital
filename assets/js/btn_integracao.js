@@ -1,10 +1,6 @@
 $(".btn-integracao").click(function(event){
     
     let sistema = $(this).attr('name');
-    let cpf = $(this).attr('id')
-
-    alert(cpf)
-
     let dados = JSON.stringify(sistema)
 
     let button = $('#btn-'+sistema)
@@ -17,7 +13,7 @@ $(".btn-integracao").click(function(event){
 
 
     $.ajax({
-            url: '../src/dipara_integracao.php',
+            url: '../src/dispara_integracao.php',
             //url: '../view/home.php',
             type: 'POST',
             dataType: "json",
@@ -69,3 +65,28 @@ $(".btn-integracao").click(function(event){
 
     event.preventDefault()
 });  
+
+function teste(id){
+    
+    let array = { 'individual': id.toString() }
+
+    let dados = JSON.stringify(array)
+
+    //alert(dados)
+
+    $.ajax({
+        url: '../src/dispara_integracao.php',
+        type: 'POST',
+        dataType: "json",
+        data: {data: dados},
+
+        success: function(result){
+            console.log(result)        
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log(errorThrown)
+        }
+    })
+    
+}
+

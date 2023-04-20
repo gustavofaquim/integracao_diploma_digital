@@ -46,7 +46,7 @@ $lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoai
         echo"<td id='nome'>".$dado['nome']."</td>";
         echo "<td> 
         <form id='dispara-abaris'>
-            <button class='btn btn-primary btn-integracao' name='abaris-individual' id='".$dado['cpf']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
+            <button class='btn btn-primary btn-teste' type='button' onclick='teste(".$dado['cpf'].")' name='abaris-individual' id='".$dado['cpf']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
             <button id='loading-abaris' disabled style='display: none;'></button>
         </form>
         </td>";
@@ -63,10 +63,8 @@ $lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoai
 
 </div>
 
-<form id='dispara-abaris'>
-        <button class='btn btn-primary btn-integracao' name='abaris-individual' id='".$dado['cpf']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
-        <button id='loading-abaris' disabled style='display: none;'></button>
-</form>
+
+
 
 <!-- <div class='paginador'>
 
@@ -86,6 +84,8 @@ $lista_abaris = abaris_getDocumentBySearch_ArrayTable($auth, 'Documentos Pessoai
 
 
 </div> -->
+
+
 </div>
 
 

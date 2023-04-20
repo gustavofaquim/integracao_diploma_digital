@@ -36,3 +36,6 @@ $("#btn-integracao-individual").click(function(event){
     event.preventDefault()
 
 })
+
+
+

@@ -57,6 +57,55 @@ function dispara_registro_lyceum($auth){
 }
 
 
+function dispara_registro_individual_lyceum($auth,$cpf){
+
+    // Lista dos documentos que já foram integrados no Lyceum
+    $lista_excecoes = lista_integrados(1);
+    
+
+    $search = json_decode(abaris_getDocumentBySearchCPF($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica', $cpf));
+    $reponse = array();
+
+    $docs = $search->documentos;
+
+    
+    foreach($docs as $doc){
+        $dado = [];
+       
+        $file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
+        //$file = json_decode(api_abaris_getDocumentByID($auth,'250560'));
+
+        // Pega os indexadores do documento e adiciona no array.
+        foreach($doc->documentoIndice as $indexador){
+            if($indexador->nomeIndice == "CPF" OR $indexador->nomeIndice == "NOME" OR  $indexador->nomeIndice == "MATRICULA" OR $indexador->nomeIndice == "Sigla Instituição"){
+                $dado += array(str_replace(" ", "_",strtolower(str_replace("ç", "c",str_replace("ã","a",$indexador->nomeIndice)))) => $indexador->valor);
+            }
+        }
+        
+        $dado += array('retorno_lyceum' => lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file));
+        $response[] = $dado;
+
+
+
+    
+        $idretorno = insere_integracao($dado);
+        
+        insere_retorno($idretorno,$dado['retorno_lyceum']);
+        
+    }
+    
+    if(isset($response)){
+        return $response;
+    }
+    else{
+        return 'Sem dados para integrar no momento';
+    }
+    
+}
+
+
+
+
 /**
  *  O método dispara_upload_abaris chama todos os outros métodos necessários para o fluxo final da integração.
  *      1º. Chama o método do Lyceum para listar o diploma do aluno;
