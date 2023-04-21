@@ -23,10 +23,8 @@
             dispara_upload_abaris($auth);
             $retorno = 'Integração Ábaris realizada';
         }
-        else if(isset($data->individual)){
-            $id = $data->individual;
-            
-            $retorno = dispara_registro_individual_lyceum($auth, $id);
+        else if(isset($data)){
+            $retorno = dispara_registro_individual_lyceum($auth, $data);
         }
         
         

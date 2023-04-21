@@ -57,7 +57,8 @@ function dispara_registro_lyceum($auth){
 }
 
 
-function dispara_registro_individual_lyceum($auth,$id){
+function dispara_registro_individual_lyceum($auth,$data){
+
 
     // Lista dos documentos que já foram integrados no Lyceum
     $lista_excecoes = lista_integrados(1);
@@ -69,8 +70,9 @@ function dispara_registro_individual_lyceum($auth,$id){
     //$docs = $search->documentos;
 
     $dado = [];
+    $dado += $data;
     
-    $file = json_decode(api_abaris_getDocumentByID($auth,$id));
+    $file = json_decode(api_abaris_getDocumentByID($auth,$data['id']));
 
 
     // Pega os indexadores do documento e adiciona no array.
@@ -83,6 +85,9 @@ function dispara_registro_individual_lyceum($auth,$id){
     $dado += array('retorno_lyceum' => lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file));
     $response[] = $dado;
 
+    echo "Fim de tudo <br>";
+    var_dump($response);
+    exit();
 
     $idretorno = insere_integracao($dado);
     
