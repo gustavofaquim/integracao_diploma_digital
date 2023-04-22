@@ -15,16 +15,16 @@
     <nav>
     <ul class="nav justify-content-center">
         <li class="nav-item active">
-            <a class="nav-link menu" href wm-nav='../view/home.php'><i class="fa-solid fa-house"></i> Início</a> 
+            <a class="nav-link menu" id='home' href wm-nav='../view/home.php'><i class="fa-solid fa-house"></i> Início</a> 
         </li>
         <li class="nav-item">
-            <a class="nav-link menu" href wm-nav="../view/integracoes.php"><i class="fa-solid fa-display"></i> Consulta Integrações</a>
+            <a class="nav-link menu" id='consulta' href wm-nav="../view/integracoes.php"><i class="fa-solid fa-display"></i> Consulta Integrações</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link menu" href wm-nav="../view/abaris.php"><i class="fa-solid fa-display"></i> Ábaris</a>
+            <a class="nav-link menu" id='abaris' href wm-nav="../view/abaris.php"><i class="fa-regular fa-folder-open"></i> Ábaris</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link menu" href wm-nav="../view/lyceum.php"><i class="fa-solid fa-display"></i> Lyceum</a>
+            <a class="nav-link menu" id='lyceum' href wm-nav="../view/lyceum.php"><i class="fa-solid fa-graduation-cap"></i> Lyceum</a>
         </li>
     </ul>
     </nav>

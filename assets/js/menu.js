@@ -5,6 +5,14 @@ $(function(){ // equivalente a $(document).ready(function(){
     event.preventDefault();
     $('.nav > li').removeClass('active');
     $(this).parent().addClass('active');
+    
+    let pag = $(this).attr('id')
+    if(pag == 'abaris'){
+      console.log('entrouu...')
+        pegaElementoTable()
+    }
+  //  pag == 'abaris' ? listarDocumentos(1) : 'null'
+  
   })
 })
 

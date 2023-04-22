@@ -195,3 +195,24 @@ button.loading .loading::after {
 .integracao-individual button{
     border-radius: 5px;
 }
+
+.listagem{
+    margin-top: 30px;
+}
+
+.listagem table{
+    margin-top: 60px;
+}
+
+.listagem h2{
+    text-align: center;
+}
+
+#paginacao li{
+    padding: 0px;
+}
+
+#paginacao{
+    margin-top: 40px;
+    box-shadow: none;
+}

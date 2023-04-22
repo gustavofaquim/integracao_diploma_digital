@@ -36,8 +36,6 @@ function abaris_getDocumentBySearch($auth,$tipoDoc, $excecoes,$tipoIndice){
    $json = json_encode($post);
 
    
-   
-
     curl_setopt_array($curl,[
         CURLOPT_URL => $url,
         CURLOPT_CUSTOMREQUEST => 'POST',
@@ -117,13 +115,6 @@ function abaris_getDocumentBySearchCPF($auth,$tipoDoc, $excecoes,$tipoIndice, $c
   
      return $response;   
 }   
-
-
-
-
-
-
-
 
 
 function api_abaris_getDocumentByID($auth, $id){
@@ -275,11 +266,65 @@ function verifica_se_documento_existe($auth, $cpf, $tipoIndice){
 }
 
 
-function abaris_getDocumentBySearch_ArrayTable($auth,$tipoDoc, $excecoes,$tipoIndice){
+function abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag,$auth,$tipoDoc, $excecoes,$tipoIndice){
     
-    $search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $excecoes,'XML Documentação Acadêmica'));
-    $reponse = array();
+    
+    // Inicia o CURL
+    $curl = curl_init();
+
+    $url = 'https://documents.abaris.com.br/api/v1/document/advanced-search';
+
+    //Cabecalhos
+    $headers = [
+        'x-api-key:'.$auth,
+        'Content-Type: application/json'
+    ];
+
+    
+    $indice = array();
+    $indice[] = array("nome" => "Tipo de Documentos","operador" => "=","valor" => $tipoIndice);
+    
+    
+    foreach($excecoes as $ex){
+        $indice[] = array("nome" => "CPF", "operador" => "<>", "valor" => $ex["CPF"]);    
+    }
+    
+    $post = [
+        "nomes_tipodocumento" => [$tipoDoc],
+        "resultados_pagina" => $qnt_result_pag,
+        "resultado_inicial" => $inicio,
+        "dataDe" => "2023-04-01",
+        //"dataAte" => "2023-05-01T13:22:39.933Z",
+        "indiceBusca" =>  $indice
+    ];
+
+    $json = json_encode($post);
+
+    
+    curl_setopt_array($curl,[
+        CURLOPT_URL => $url,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_POSTFIELDS => $json
+    ]);
+    
+    // Executa a requisição
+    $response = curl_exec($curl);
+
+
+    // Fecha a conexão
+    curl_close($curl);
+
+    // Imprime o resultado da requisição
+    
+    $search = json_decode($response);   
+
+    //$search = json_decode(abaris_getDocumentBySearch($auth, 'Documentos Pessoais - Registro', $excecoes,'XML Documentação Acadêmica'));
+    $res = array();
     $docs = $search->documentos;
+
+  
     
     foreach($docs as $doc){
         $dado = [];
@@ -298,9 +343,12 @@ function abaris_getDocumentBySearch_ArrayTable($auth,$tipoDoc, $excecoes,$tipoIn
         
         }
         //$dado += array('retorno_lyceum' => '');
-        $response[] = $dado;
+        $res[] = $dado;
+
     }
 
 
-    return $response;
+
+
+    return $res;
 }
