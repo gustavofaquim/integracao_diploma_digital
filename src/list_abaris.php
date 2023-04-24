@@ -42,12 +42,12 @@ foreach($lista_abaris as $dado){
                 <td id='nome'>".$dado['nome']."</td>
                 <td> 
                 <form id='dispara-abaris'>
-                    <button class='btn btn-primary btn-teste' type='button' onclick='integracao_individual_lyceum(".json_encode($dado).")' name='abaris-individual' id='".$dado['id']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
-                    <button id='loading-abaris' disabled style='display: none;'></button>
+                    <button class='btn btn-primary btn-teste' type='button' name='abaris'  onclick='integracao_individual_lyceum(".json_encode($dado).",".$dado['id'].")'  id='btn-abaris-".$dado['id']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
+                    <button class='loading-abaris' id='loading-abaris-".$dado['id']."' disabled style='display: none;'></button>
                 </form>
                 </td>
             </tr>";
-    }
+}
 
 $dados .= "</tbody></table>";
 

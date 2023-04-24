@@ -13,8 +13,7 @@
         $data = $_POST['data'];
        // $data2 = json_decode($_POST['data']);
 
-       
-
+       if(json_decode(gettype($data)) == 'string'){
         if(json_decode($data) == 'lyceum'){
             dispara_registro_lyceum($auth);
             $retorno = 'Integração Lyceum realizada';
@@ -23,7 +22,7 @@
             dispara_upload_abaris($auth);
             $retorno = 'Integração Ábaris realizada';
         }
-        else if(isset($data)){
+       }else if(gettype($data) == 'array'){
             $retorno = dispara_registro_individual_lyceum($auth, $data);
         }
         

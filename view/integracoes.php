@@ -5,6 +5,8 @@ include '../db/database.php';
 $pagina = (isset($_GET['p']))? $_GET['p'] : 1; 
 
 $integrados = lista_integrados($pagina);
+
+
 ?>
 
 <div class='listagem'>

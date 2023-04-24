@@ -66,21 +66,44 @@ $(".btn-integracao").click(function(event){
     event.preventDefault()
 });  
 
-function integracao_individual_lyceum(d){
+
+
+function integracao_individual_lyceum(d,btnId){
     
-    //let array = { 'individual': id.toString() }
-
+    let id = btnId
     let dados = d
+    let sistema = 'abaris'
 
-    //console.log(d)
 
+    let button = $('#btn-abaris-' + id)
+
+    let loadingButton = $('#loading-'+sistema+'-'+id)
+    
+    loadingButton.addClass('loading') 
 
     $.ajax({
         url: '../src/dispara_integracao.php',
         type: 'POST',
         dataType: "json",
         data: {data: dados},
-
+        beforeSend: function(){
+            $('#btn-'+sistema).css({
+                'background-color': '#FBB635',
+                'border': '1px solid #FBB635'
+            });
+            button.hide();
+            loadingButton.show(); // Mostra o botão de carregamento
+        }, 
+        complete: function(){
+            $('#btn-'+sistema).css({
+                'background-color': '',
+                'border': ''
+            });
+            button.removeClass('loading'); // Remove a classe .loading do botão
+            //$('#btn-icon-'+sistema).show();
+            loadingButton.hide(); // Esconde o botão de carregamento
+            button.show();
+        },
         success: function(result){
             console.log(result)        
         },

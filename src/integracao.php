@@ -85,10 +85,6 @@ function dispara_registro_individual_lyceum($auth,$data){
     $dado += array('retorno_lyceum' => lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file));
     $response[] = $dado;
 
-    echo "Fim de tudo <br>";
-    var_dump($response);
-    exit();
-
     $idretorno = insere_integracao($dado);
     
     insere_retorno($idretorno,$dado['retorno_lyceum']);

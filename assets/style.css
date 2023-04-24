@@ -149,6 +149,16 @@ nav li:hover{
     padding: 25px 10px 6px 13px;
 }
 
+.loading-abaris{
+    width: 38px;
+    height: 38px;
+    padding: 6px 12px;
+    background-color: #FBB635;
+    border: 0px solid;
+    padding: 25px 10px 6px 13px;
+    border-radius: 20px;
+}
+
 .loading::after {
   content: "";
   display: block;
