@@ -268,7 +268,8 @@ function verifica_se_documento_existe($auth, $cpf, $tipoIndice){
 
 function abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag,$auth,$tipoDoc, $excecoes,$tipoIndice){
     
-    
+    include '../db/database.php';
+
     // Inicia o CURL
     $curl = curl_init();
 
@@ -335,18 +336,32 @@ function abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag,$auth,$t
         // Pega os indexadores do documento e adiciona no array.
         $dado += array('id' => $doc->id);
         foreach($doc->documentoIndice as $indexador){
+
            
             if($indexador->nomeIndice == "CPF" OR $indexador->nomeIndice == "NOME" OR  $indexador->nomeIndice == "MATRICULA" OR $indexador->nomeIndice == "Sigla Instituição"){
                 $dado += array(str_replace(" ", "_",strtolower(str_replace("ç", "c",str_replace("ã","a",$indexador->nomeIndice)))) => $indexador->valor);
             }
-
-        
+                        
+            if($indexador->nomeIndice == "MATRICULA"){
+                
+                $retorno_lyceum = lista_integrados(1, $indexador->valor);
+               
+                if(count($retorno_lyceum) >= 1){
+                    $retorno = json_decode($retorno_lyceum[0]['MSG'])->titulo;
+                }else{
+                    $retorno = 'Sem retorno';
+                }
+         
+               
+                //var_dump($retorno);
+               // var_dump(json_decode($retorno_lyceum[0]['MSG'])->titulo . '<br><br>');
+                
+                $dado += array('retorno_lyceum' =>  $retorno);
+            }            
         }
-        //$dado += array('retorno_lyceum' => '');
+        
         $res[] = $dado;
-
     }
-
 
 
 

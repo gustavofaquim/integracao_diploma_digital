@@ -100,17 +100,22 @@ function insere_retorno($id, $msg){
 }
 
 
-function lista_integrados($pagina){
+function lista_integrados($pagina, $dados){
     try{
         //$Conexao = Conexao::getConnection();
         $con = new Database();
-
+        
         //$query = $Conexao->query("SELECT CPF, nome_aluno FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao WHERE i.tentar_novamente <> 'S' --AND MSG NOT LIKE '%não cadastrada%' ");
         
         $limite = 15;
         $inicio = ($pagina * $limite) - $limite;
 
-        $result = $con->executeQuery("SELECT i.idintegracao, sigla_instituicao, CPF, nome_aluno, data, msg FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao ORDER BY i.idintegracao DESC OFFSET " . $inicio . " ROWS FETCH NEXT ". $limite ." ROWS ONLY  --AND MSG NOT LIKE '%não cadastrada%' ");
+        if($dados != 'null'){
+            $result = $con->executeQuery("SELECT TOP 1 i.idintegracao, sigla_instituicao, CPF, nome_aluno, data, msg FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao WHERE i.matricula ='".$dados."' ORDER BY i.idintegracao --AND MSG NOT LIKE '%não cadastrada%' ");
+        }else{
+            $result = $con->executeQuery("SELECT i.idintegracao, sigla_instituicao, CPF, nome_aluno, data, msg FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao ORDER BY i.idintegracao DESC OFFSET " . $inicio . " ROWS FETCH NEXT ". $limite ." ROWS ONLY  --AND MSG NOT LIKE '%não cadastrada%' ");
+        }
+      
 
         $query_count  = $result->rowCount(PDO::FETCH_ASSOC);
         $qtdPag = ceil($query_count/$limite);
@@ -118,6 +123,7 @@ function lista_integrados($pagina){
         $result = $result->fetchAll(PDO::FETCH_OBJ);
 
         $lista = [];
+
 
         foreach($result as $id => $objeto){
             $list = [];
@@ -134,16 +140,12 @@ function lista_integrados($pagina){
 
         $response = $lista;
 
-        
-
     }catch(Exception $e){
-    
         // echo $e->getMessage();
          $response =  $e->getMessage();
-    
-      }
+    }
 
-      return $response;
+    return $response;
 }
 
 function lista_diplomas_finalizados(){

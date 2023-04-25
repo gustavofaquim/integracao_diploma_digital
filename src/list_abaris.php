@@ -18,6 +18,7 @@ $lista_excecoes = array();
 
 $lista_abaris = abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag, $auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica');
 
+
 $qnt_retorno = count($lista_abaris);
 
 $dados = "<table class='table table-striped table-responsive'>
@@ -28,23 +29,35 @@ $dados = "<table class='table table-striped table-responsive'>
                 <th scope='col'>CPF</th>
                 <th scope='col'>MATRICULA</th>
                 <th scope='col'>NOME</th>
-                <th scope='col'>integração</th>
+                <th scope='col'>LOG</th>
+                <th scope='col'>INTEGRAR</th>
             </tr>
             </thead>
             <tbody>";
 
 foreach($lista_abaris as $dado){
+    if($dado['retorno_lyceum'] <> 'Sem retorno'){
+        $estilizacao = "style='color:#3CB371; border: 1px solid #3CB371'; ";
+    }else{
+        $estilizacao = "";
+    }
     $dados.= "<tr>
                 <th scope='row'>".$dado['id']."</th>
                 <td>".$dado['sigla_instituicao']."</td>
                 <td>".$dado['cpf']."</td>
                 <td>".$dado['matricula']."</td>
                 <td id='nome'>".$dado['nome']."</td>
+                <td id='log'>
+                    <button type='button' id='btn".$dado['id']."' ".$estilizacao." name='btnModal' onclick='chamaModal(".json_encode($dado['retorno_lyceum']).")' class='btn btn-outline-secondary btn-sm' data-toggle='modal' data-target='#modalExemplo'>
+                        <i class='fa-regular fa-file-lines'></i>
+                    </button>
+                </td>
+                </td>
                 <td> 
-                <form id='dispara-abaris'>
-                    <button class='btn btn-primary btn-teste' type='button' name='abaris'  onclick='integracao_individual_lyceum(".json_encode($dado).",".$dado['id'].")'  id='btn-abaris-".$dado['id']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
-                    <button class='loading-abaris' id='loading-abaris-".$dado['id']."' disabled style='display: none;'></button>
-                </form>
+                    <form id='dispara-abaris'>
+                        <button class='btn btn-primary btn-teste' type='button' name='abaris'  onclick='integracao_individual_lyceum(".json_encode($dado).",".$dado['id'].")'  id='btn-abaris-".$dado['id']."'><i class='fa-solid fa-play' id='btn-icon-abaris'></i></button>
+                        <button class='loading-abaris' id='loading-abaris-".$dado['id']."' disabled style='display: none;'></button>
+                    </form>
                 </td>
             </tr>";
 }
@@ -67,5 +80,9 @@ if($qnt_retorno < $qnt_result_pag){
     $dados .= '<li class="page-item"> <a class="page-link" href="#" onclick="listarDocumentos('.($pagina + 1).')">Próximo</a>';   
 }
 $dados .= '</li> </ul> </nav> ';
+
+
+
+
 
 echo $dados;

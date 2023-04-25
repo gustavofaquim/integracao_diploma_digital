@@ -61,7 +61,7 @@ function dispara_registro_individual_lyceum($auth,$data){
 
 
     // Lista dos documentos que já foram integrados no Lyceum
-    $lista_excecoes = lista_integrados(1);
+    $lista_excecoes = lista_integrados(1, 'null');
     
 
     //$search = json_decode(abaris_getDocumentBySearchCPF($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica', $cpf));
