@@ -7,9 +7,13 @@ $(function(){ // equivalente a $(document).ready(function(){
     $(this).parent().addClass('active');
     
     let pag = $(this).attr('id')
+
     if(pag == 'abaris'){
       console.log('entrouu...')
-        pegaElementoTable()
+      pegaElementoTable()
+    }else if(pag == 'lyceum'){
+      console.log('entrouu...')
+      pegaElementoTableLyceum()
     }
   //  pag == 'abaris' ? listarDocumentos(1) : 'null'
   

@@ -57,7 +57,7 @@ function abaris_getDocumentBySearch($auth,$tipoDoc, $excecoes,$tipoIndice){
 
 
 
-// Bsuca de documentos atraves da busca avançada, passando o CPF 
+// Busuca de documentos atraves da busca avançada, passando o CPF 
 function abaris_getDocumentBySearchCPF($auth,$tipoDoc, $excecoes,$tipoIndice, $cpf){
     // Inicia o CURL
     $curl = curl_init();

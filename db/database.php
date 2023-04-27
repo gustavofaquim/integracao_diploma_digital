@@ -117,7 +117,7 @@ function lista_integrados($pagina, $dados){
         }
       
 
-        $query_count  = $result->rowCount(PDO::FETCH_ASSOC);
+        $query_count  = $result->rowCount();
         $qtdPag = ceil($query_count/$limite);
 
         $result = $result->fetchAll(PDO::FETCH_OBJ);
@@ -155,7 +155,7 @@ function lista_diplomas_finalizados(){
 
         //$query = $Conexao->query("SELECT CPF, nome_aluno FROM  integracao i INNER JOIN retorno_lyceum r ON i.idintegracao = r.idintegracao WHERE i.tentar_novamente <> 'S' --AND MSG NOT LIKE '%não cadastrada%' ");
         
-        $result = $con->executeQuery("SELECT ALUNO_ID, ALUNO_CPF FROM [LYCEUM].[DBO].[LY_DIPLOMA_DIGITAL] WHERE TENANT = 'Lyceum Externa'");
+        $result = $con->executeQuery("SELECT  ALUNO_ID, ALUNO_CPF, ID_DIPLOMA_DIGITAL, ALUNO_NOME, STATUS_ATUAL, DATA_STATUS_ATUAL, COD_VALIDACAO, POLO_NOME   FROM [LYCEUM].[DBO].[LY_DIPLOMA_DIGITAL] WHERE TENANT = 'Lyceum Externa'");
 
         $result = $result->fetchAll(PDO::FETCH_OBJ);
 
@@ -166,6 +166,12 @@ function lista_diplomas_finalizados(){
 
             $list += ['aluno' => $objeto->ALUNO_ID];
             $list += ['cpf' => $objeto->ALUNO_CPF];
+            $list += ['id_diploma' => $objeto->ID_DIPLOMA_DIGITAL];
+            $list += ['aluno_nome' => $objeto->ALUNO_NOME];
+            $list += ['status_atual' => $objeto->STATUS_ATUAL];
+            $list += ['dt_status' => (new \DateTimeImmutable($objeto->DATA_STATUS_ATUAL))->format('d/m/Y H:i:s')];
+            $list += ['cod_validacao' => $objeto->COD_VALIDACAO];
+            $list += ['polo_nome' => $objeto->POLO_NOME];
 
             $lista[] = $list;
         }

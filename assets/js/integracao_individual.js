@@ -1,11 +1,11 @@
 $("#btn-integracao-individual").click(function(event){
     
-    alert('teste 02')
+    //alert('teste 02')
     
     let sistema = $(this).attr('name');
     let cpf = $(this).attr('id');
 
-    alert(cpf)
+    //alert(cpf)
 
     let dados = JSON.stringify(sistema)
 

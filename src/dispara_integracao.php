@@ -23,7 +23,14 @@
             $retorno = 'Integração Ábaris realizada';
         }
        }else if(gettype($data) == 'array'){
-            $retorno = dispara_registro_individual_lyceum($auth, $data);
+            
+            if($data['sistema'] == 'abaris'){
+                $retorno = dispara_upload_individual_abaris($auth, $data);
+            } 
+            else if($data['sistema'] == 'lyceum'){
+                $retorno = dispara_registro_individual_lyceum($auth, $data);
+            }   
+          
         }
         
         
