@@ -187,6 +187,29 @@ button.loading .loading::after {
 }
 
 
+.card-abaris{
+    color: #00989A;
+}
+
+.card-lyceum{
+    color: #417ec0;
+}
+
+.card-titulo-info i{
+    display: inline;
+    font-size: 45px;
+    margin-top: 10px;
+}
+
+.card-titulo-info .card-body{
+    display: inline-flex;
+}
+
+.card-titulo-info .card-body div{
+    margin-left: 10px;
+}
+
+
 .paginador{
     display: block;
 }

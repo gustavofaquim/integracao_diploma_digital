@@ -4,7 +4,15 @@
 ?>
 
 <div class='listagem'>
-    <h2>Diplomas Registrados</h2>
+  <div class="card card-titulo-info card-lyceum">
+    <div class="card-body">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <div> 
+        <h4>Diplomas Registrados</h4>
+        <p> Diplomas registrados de IES Externas no Lyceum</p>
+      </div>
+    </div>
+  </div>
 
     
   <div id='table'>
