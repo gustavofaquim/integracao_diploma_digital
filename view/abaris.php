@@ -8,7 +8,7 @@
 
   <div class="card card-titulo-info card-abaris">
     <div class="card-body">
-      <i class="fa-solid fa-circle-exclamation"></i>
+      <i class="fa-regular fa-file-code"></i>
       <div> 
         <h4>XML Documentação Acadêmica</h4>
         <p> Documentos que foram armazenados no Ábaris para serem conferidos e enviados para o registro no Lyceum.</p>

@@ -189,10 +189,17 @@ button.loading .loading::after {
 
 .card-abaris{
     color: #00989A;
+    border: 0px solid;
+    border-radius: 0px;
+    border-left: 5px solid #00989A;;
+
 }
 
 .card-lyceum{
     color: #417ec0;
+    border: 0px solid;
+    border-radius: 0px;
+    border-left: 5px solid #417ec0;
 }
 
 .card-titulo-info i{
@@ -250,3 +257,27 @@ button.loading .loading::after {
     margin-top: 40px;
     box-shadow: none;
 }
+
+
+
+#pageMessages {
+    position: fixed;
+    top: 120px;
+    right: 15px;
+    width: 30%;
+  }
+  
+  .alert {
+    position: relative;
+  }
+  
+  .alert .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1em;
+  }
+  
+  .alert .fa {
+    margin-right:.3em;
+  }
