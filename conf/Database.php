@@ -52,8 +52,10 @@ class Database extends PDO{
     private $con;
 
     public function __construct(){
-        parent::__construct("sqlsrv:Database=$this->DB_NAME; Server=$this->DB_HOST;");
-        // parent::__construct("sqlsrv:Database=$this->DB_NAME; Server=$this->DB_HOST; DB_USER =$this->DB_USER; DB_PASSWORD=$this->DB_PASSWORD");
+        //parent::__construct("sqlsrv:Database=$this->DB_NAME; Server=$this->DB_HOST;");
+        parent::__construct("sqlsrv:Database=$this->DB_NAME; Server=$this->DB_HOST", $this->DB_USER, $this->DB_PASSWORD);
+        //parent::__construct("sqlsrv:Database=$this->DB_NAME; Server=$this->DB_HOST; DB_USER =$this->DB_USER; DB_PASSWORD=$this->DB_PASSWORD");
+
     }
 
     private function setParameters($stmt, $key, $value){
