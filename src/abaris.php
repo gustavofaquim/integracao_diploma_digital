@@ -104,8 +104,6 @@ function abaris_getDocumentBySearchCPF($auth,$tipoDoc, $excecoes,$tipoIndice, $c
      // Executa a requisição
      $response = curl_exec($curl);
 
-     var_dump($response);
-     exit();
 
      // Fecha a conexão
      curl_close($curl);

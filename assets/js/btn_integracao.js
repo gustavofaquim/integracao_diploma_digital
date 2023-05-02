@@ -1,7 +1,12 @@
 $(".btn-integracao").click(function(event){
     
     let sistema = $(this).attr('name');
-    let dados = JSON.stringify(sistema)
+    
+   // let dados = JSON.stringify(sistema)
+    let x = 'geral-' + sistema
+    let dados = {"sistema": x}
+    console.log(dados)
+
 
     let button = $('#btn-'+sistema)
     let loadingButton = $('#loading-'+sistema);
@@ -33,27 +38,15 @@ $(".btn-integracao").click(function(event){
                     'border': ''
                 });
                 button.removeClass('loading'); // Remove a classe .loading do botão
-                //$('#btn-icon-'+sistema).show();
+                
                 loadingButton.hide(); // Esconde o botão de carregamento
                 button.show();
             },
             success: function(result){
                 console.log(result)
-
-                $("#msg").toggleClass('div-success')
-                $("#msg").append("<strong>Sucesso!</strong> " + result)
-                $("#msg").fadeTo(2000, 500).slideUp(500, function(){
-                    $("#msg").slideUp(500);
-                })             
             },
             error: function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown)
-
-                $("#msg").toggleClass('div-success')
-                $("#msg").append("<strong>Error!</strong> " +  errorThrown)
-                $("#msg").fadeTo(2000, 500).slideUp(500, function(){
-                    $("#msg").slideUp(500);
-                }); 
             }
         }) 
         
@@ -73,6 +66,7 @@ function integracao_individual_lyceum(d,btnId){
     let id = btnId
     let dados = d
     dados.sistema = 'lyceum'
+    console.log(dados)
     let sistema = 'abaris'
 
 
@@ -87,6 +81,7 @@ function integracao_individual_lyceum(d,btnId){
         type: 'POST',
         dataType: "json",
         data: {data: dados},
+
         beforeSend: function(){
             $('#btn-'+sistema).css({
                 'background-color': '#FBB635',
