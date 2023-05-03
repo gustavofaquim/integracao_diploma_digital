@@ -44,4 +44,7 @@ REFERENCES [dbo].[integracao] ([idintegracao])
 
 GO
 
+--SELECT * FROM integracao
+
+--SELECT * FROM retorno_lyceum
 

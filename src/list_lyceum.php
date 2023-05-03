@@ -15,7 +15,8 @@ $inicio = ($pagina * $qnt_result_pag) - $qnt_result_pag;
 
 $lista_lyceum = lista_diplomas_finalizados();
 
-
+//var_dump($lista_lyceum);
+//exit();
 
 $qnt_retorno = count($lista_lyceum);
 
