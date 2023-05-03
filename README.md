@@ -5,17 +5,17 @@ Atendendo a legislação vigente a UniEVANGÉLICA - Universidade Evangélica de 
 
 ### 📋 Pré-requisitos
 
-Extensão do Curl do PHP habilitada
-    -> Windows: php.ini ;extension=php_curl.dll <br>
-    -> Linux: sudo apt-get install php-curl <br>
+Extensão do Curl do PHP habilitada<br>
+    Windows: php.ini ;extension=php_curl.dll <br>
+    Linux: sudo apt-get install php-curl <br>
 
 Drive de conexão do SQL Server <br>
-    -> https://learn.microsoft.com/pt-br/sql/connect/php/download-drivers-php-sql-server?view=sql-server-ver15 <br>
-    -> Copiar os arquivos para o diretório ext <br>
+    https://learn.microsoft.com/pt-br/sql/connect/php/download-drivers-php-sql-server?view=sql-server-ver15 <br>
+    Copiar os arquivos para o diretório ext <br>
 
 No arquivo php.ini, inseria a referência as DLLS <br>
-    -> extension=php_pdo_sqlsrv_73_ts_x64.dll <br>
-    -> extension=php_sqlsrv_73_ts_x64.dll <br>
+    extension=php_pdo_sqlsrv_73_ts_x64.dll <br>
+    extension=php_sqlsrv_73_ts_x64.dll <br>
 
 
 ## 🛠️ Construído com
@@ -26,7 +26,5 @@ No arquivo php.ini, inseria a referência as DLLS <br>
 
 
 ## ✒️ Autores
-
-Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
 
 * **Gustavo Faquim** - *Desenvolvedor* - [gustavofaquim](https://github.com/gustavofaquim)
