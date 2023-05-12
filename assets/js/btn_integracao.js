@@ -19,12 +19,12 @@ $(".btn-integracao").click(function(event){
 
     $.ajax({
             url: '../src/dispara_integracao.php',
-            //url: '../view/home.php',
+           
             type: 'POST',
             dataType: "json",
             data: {data: dados},
             beforeSend: function(){
-            // $('#btn-lyceum').css({'background-color':, '#FBB635', 'border':, '1px solid #FBB635'});
+            
                 $('#btn-'+sistema).css({
                     'background-color': '#FBB635',
                     'border': '1px solid #FBB635'
@@ -66,8 +66,8 @@ function integracao_individual_lyceum(d,btnId){
     let id = btnId
     let dados = d
     dados.sistema = 'lyceum'
-    console.log(dados)
     let sistema = 'abaris'
+
 
 
     let button = $('#btn-abaris-' + id)
@@ -96,15 +96,17 @@ function integracao_individual_lyceum(d,btnId){
                 'border': ''
             });
             button.removeClass('loading'); // Remove a classe .loading do botão
-            //$('#btn-icon-'+sistema).show();
             loadingButton.hide(); // Esconde o botão de carregamento
             button.show();
+            $('#btn'+id).removeClass('removeDisplay');  
         },
         success: function(result){
-            console.log(result)        
+            console.log(result['retorno_lyceum'])
+            $('#btn'+id).attr('onclick', 'chamaModal('+ result['retorno_lyceum'] +');')    
         },
         error: function(jqXHR, textStatus, errorThrown){
             console.log(errorThrown)
+            $('#btn'+id).attr('onclick', 'chamaModal('+ errorThrown +');')   
         }
     })
     

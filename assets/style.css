@@ -281,3 +281,7 @@ button.loading .loading::after {
   .alert .fa {
     margin-right:.3em;
   }
+
+  .removeDisplay{
+    display: none;
+  }
