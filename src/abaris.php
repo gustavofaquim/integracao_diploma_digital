@@ -345,7 +345,9 @@ function abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag,$auth,$t
                 $retorno_lyceum = lista_integrados(1, $indexador->valor);
                
                 if(count($retorno_lyceum) >= 1){
-                    $retorno = json_decode($retorno_lyceum[0]['MSG'])->titulo;
+                   // print_r($retorno_lyceum);
+                    $retorno = json_decode($retorno_lyceum[0]['MSG']);
+                    //$retorno = json_decode($retorno_lyceum[0]['MSG'])->titulo;
                 }else{
                     $retorno = 'Sem retorno';
                 }

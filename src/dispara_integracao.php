@@ -21,6 +21,7 @@
             }  
             else if($data['sistema'] == 'lyceum'){
                 $retorno = dispara_registro_individual_lyceum($auth, $data);
+
             }
             else if($data['sistema'] == 'geral-lyceum'){
                 dispara_registro_lyceum($auth);

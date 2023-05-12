@@ -37,9 +37,10 @@ $dados = "<table class='table table-striped table-responsive'>
 
 foreach($lista_abaris as $dado){
     if($dado['retorno_lyceum'] <> 'Sem retorno'){
-        $estilizacao = "style='color:#3CB371; border: 1px solid #3CB371'; ";
-    }else{
+        //$estilizacao = "style='color:#3CB371; border: 1px solid #3CB371'; ";
         $estilizacao = "";
+    }else{
+        $estilizacao = "removeDisplay";
     }
     $dados.= "<tr>
                 <th scope='row'>".$dado['id']."</th>
@@ -48,7 +49,7 @@ foreach($lista_abaris as $dado){
                 <td>".$dado['matricula']."</td>
                 <td id='nome'>".$dado['nome']."</td>
                 <td id='log'>
-                    <button type='button' id='btn".$dado['id']."' ".$estilizacao." name='btnModal' onclick='chamaModal(".json_encode($dado['retorno_lyceum']).")' class='btn btn-outline-secondary btn-sm' data-toggle='modal' data-target='#modalExemplo'>
+                    <button type='button' id='btn".$dado['id']."' name='btnModal' onclick='chamaModal(".json_encode($dado['retorno_lyceum']).")' class=' ".$estilizacao." btn btn-outline-secondary btn-sm' data-toggle='modal' data-target='#modalExemplo'>
                         <i class='fa-regular fa-file-lines'></i>
                     </button>
                 </td>

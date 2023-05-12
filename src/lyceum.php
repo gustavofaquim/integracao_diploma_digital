@@ -6,7 +6,8 @@
 function lyceum_listaDiplomaPorAluno($aluno, $cpf){
     $curl = curl_init();
 
-    $url = 'http://172.16.16.106:8080/api/diploma-digital/diplomas-digitais?aluno-id='.$aluno.'&cpf='.$cpf.'&status=Finalizado';
+    //$url = 'http://172.16.16.106:8080/api/diploma-digital/diplomas-digitais?aluno-id='.$aluno.'&cpf='.$cpf.'&status=Finalizado';
+    $url = 'http://172.16.16.37:8080/api/diploma-digital/diplomas-digitais?aluno-id='.$aluno.'&cpf='.$cpf.'&status=Finalizado';
 
     $headers = [
         'Authorization: Basic YXBpdXNlcjphcGl1c2VyQDEyMw=='
@@ -35,7 +36,9 @@ function lyceum_obterXmlDiploma($codValidacao){
     // Inicia o CURL
     $curl = curl_init();
 
-    $url = 'http://172.16.16.106:8080/api/diploma-digital/obter-arquivo-diplomado?cod-validacao='.$codValidacao.'&tipo=xml';
+    //$url = 'http://172.16.16.106:8080/api/diploma-digital/obter-arquivo-diplomado?cod-validacao='.$codValidacao.'&tipo=xml';
+
+    $url = 'http://172.16.16.37:8080/api/diploma-digital/obter-arquivo-diplomado?cod-validacao='.$codValidacao.'&tipo=xml';
 
      //Cabecalhos
      $headers = [
@@ -67,7 +70,9 @@ function lyceum_registraDiplomaExterno($idExterno, $lote, $tenant, $xml){
     // Inicia o CURL
     $curl = curl_init();
 
-    $url = 'http://172.16.16.106:8080/api/diploma-digital/registrar-diploma';
+    //$url = 'http://172.16.16.106:8080/api/diploma-digital/registrar-diploma'; teste
+    $url = 'http://172.16.16.37:8080/api/diploma-digital/registrar-diploma';
+
 
     //Cabecalhos
     $headers = [
@@ -92,15 +97,17 @@ function lyceum_registraDiplomaExterno($idExterno, $lote, $tenant, $xml){
          CURLOPT_RETURNTRANSFER => true,
          CURLOPT_HTTPHEADER => $headers,
          CURLOPT_POSTFIELDS => $json
-     ]);
+    ]);
 
 
     // Executa a requisição
     $response = curl_exec($curl);
+   
 
 
     // Fecha a conexão
     curl_close($curl);
+
 
     // Imprime o resultado da requisição
     return $response;

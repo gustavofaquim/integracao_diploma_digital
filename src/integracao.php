@@ -65,14 +65,16 @@ function dispara_registro_individual_lyceum($auth,$data){
     
 
     //$search = json_decode(abaris_getDocumentBySearchCPF($auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica', $cpf));
-    $reponse = array();
+    //$reponse = array();
 
     //$docs = $search->documentos;
 
     $dado = [];
-    $dado += $data;
+    //$dado += $data;
     
     $file = json_decode(api_abaris_getDocumentByID($auth,$data['id']));
+    //print_r($file);
+    //exit();
 
 
     // Pega os indexadores do documento e adiciona no array.
@@ -82,17 +84,21 @@ function dispara_registro_individual_lyceum($auth,$data){
         }
     }*/
     
-    $dado += array('retorno_lyceum' => lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file));
-    $response[] = $dado;
+    $retorno_lyceum =  array('retorno_lyceum' => lyceum_registraDiplomaExterno('1','1','Lyceum Externa', $file->file));
+    
+    $dado += $retorno_lyceum;
+    $dado += $data;
+    $response = $dado;
+    
 
     $idretorno = insere_integracao($dado);
     
     insere_retorno($idretorno,$dado['retorno_lyceum']);
         
     
-    
     if(isset($response)){
-        return $response;
+
+        return $response;       
     }
     else{
         return 'Sem dados para integrar no momento';
