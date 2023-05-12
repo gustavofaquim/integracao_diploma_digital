@@ -37,9 +37,9 @@ class Database extends PDO{
 
 
     private $DB_NAME = 'Integracao_Diploma_Abaris';
-    private $DB_USER = 'lyceum';
-    private $DB_PASSWORD = 'teste';
-    private $DB_HOST = 'DES03';
+    private $DB_USER = '';
+    private $DB_PASSWORD = '';
+    private $DB_HOST = 'DATASERVER';
     private $DB_PORT = '';
     private $DB_DRIVER = 'sqlsrv';
 
