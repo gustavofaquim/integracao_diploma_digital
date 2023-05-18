@@ -25,6 +25,10 @@ Atendendo a legislação vigente a UniEVANGÉLICA - Universidade Evangélica de 
 * [Javascript](https://www.javascript.com/) 
 
 
+## 💼 Próximas Atualizações
+
+* Campo de busca na tela Ábaris e Lyceum
+
 ## ✒️ Autores
 
 * **Gustavo Faquim** - *Desenvolvedor* - [gustavofaquim](https://github.com/gustavofaquim)
