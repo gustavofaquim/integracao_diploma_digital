@@ -9,6 +9,8 @@ $auth = abaris_autenticacao();
 include '../src/abaris.php';
 
 $pagina = intval((isset($_GET['pagina']))? $_GET['pagina'] : 1); 
+$string_busca = (isset($_GET['busca'])) ? $_GET['busca'] : '';
+
 
 // calcular o inicio da vizualização
 $qnt_result_pag = 20; // Quantidade de registros por página
@@ -16,7 +18,7 @@ $inicio = ($pagina * $qnt_result_pag) - $qnt_result_pag;
 
 $lista_excecoes = array();
 
-$lista_abaris = abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag, $auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica');
+$lista_abaris = abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag, $auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica', $string_busca);
 
 
 $qnt_retorno = count($lista_abaris);

@@ -13,7 +13,7 @@ Atendendo a legislação vigente a UniEVANGÉLICA - Universidade Evangélica de 
     https://learn.microsoft.com/pt-br/sql/connect/php/download-drivers-php-sql-server?view=sql-server-ver15 <br>
     Copiar os arquivos para o diretório ext <br>
 
-* No arquivo php.ini, inseria a referência as DLLS <br>
+* No arquivo php.ini, insira a referência as DLLS <br>
     extension=php_pdo_sqlsrv_73_ts_x64.dll <br>
     extension=php_sqlsrv_73_ts_x64.dll <br>
 

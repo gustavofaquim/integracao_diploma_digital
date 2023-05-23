@@ -34,6 +34,3 @@ const listarDiplomasExternos = async (pagina) =>{
     const resposta = await dados.text()
     tbody.innerHTML = resposta
 }
-
-
-

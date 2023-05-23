@@ -264,7 +264,7 @@ function verifica_se_documento_existe($auth, $cpf, $tipoIndice){
 }
 
 
-function abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag,$auth,$tipoDoc, $excecoes,$tipoIndice){
+function abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag,$auth,$tipoDoc, $excecoes,$tipoIndice, $string){
     
     include '../db/database.php';
 
@@ -282,6 +282,10 @@ function abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag,$auth,$t
     
     $indice = array();
     $indice[] = array("nome" => "Tipo de Documentos","operador" => "=","valor" => $tipoIndice);
+
+    if(isset($string)){
+        $indice[] = array("nome" => "NOME", "operador" => "=", "valor" => $string); 
+    }
     
     
     foreach($excecoes as $ex){

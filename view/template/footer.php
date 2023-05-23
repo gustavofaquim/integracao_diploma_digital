@@ -5,6 +5,7 @@
 <script src="../assets/js/modal.js"></script>
 <script src="../assets/js/btn_integracao.js"></script>
 <script src="../assets/js/paginador.js"></script>
+<script src="../assets/js/busca.js"></script>
 
 
 </body>
