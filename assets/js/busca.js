@@ -4,10 +4,14 @@
 function  buscar(){
  
     let busca = $('#buscar').val();
-    
-    const dados = ("../src/list_lyceum.php?busca=" + busca)
-    const resposta =  dados.text()
-    tbody.innerHTML = resposta
-    
-    //alert(busca);
+    console.log('Search: ' + busca)
+
+     
+    const listarDocumentos = async (busca) =>{
+        const dados = await fetch("../src/list_abaris.php?busca=" + busca)
+        const resposta = await dados.text()
+        tbody.innerHTML = resposta
+    }
+
+    listarDocumentos(busca)
 }
