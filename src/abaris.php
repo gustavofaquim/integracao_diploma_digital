@@ -284,7 +284,7 @@ function abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag,$auth,$t
     $indice[] = array("nome" => "Tipo de Documentos","operador" => "=","valor" => $tipoIndice);
 
     if(isset($string)){
-        $indice[] = array("nome" => "NOME", "operador" => "=", "valor" => $string); 
+        $indice[] = array("nome" => "NOME", "operador" => "*A*", "valor" => $string); 
     }
     
     
@@ -332,11 +332,11 @@ function abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag,$auth,$t
     foreach($docs as $doc){
         $dado = [];
        
-        //$file = json_decode(api_abaris_getDocumentByID($auth,$doc->id));
-        //$file = json_decode(api_abaris_getDocumentByID($auth,'250560'));
 
         // Pega os indexadores do documento e adiciona no array.
         $dado += array('id' => $doc->id);
+        $dado += array('data_import' => $doc->dataImportacao);
+      
         foreach($doc->documentoIndice as $indexador){
 
            

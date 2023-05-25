@@ -12,6 +12,7 @@ $pagina = intval((isset($_GET['pagina']))? $_GET['pagina'] : 1);
 $string_busca = (isset($_GET['busca'])) ? $_GET['busca'] : '';
 
 
+
 // calcular o inicio da vizualização
 $qnt_result_pag = 20; // Quantidade de registros por página
 $inicio = ($pagina * $qnt_result_pag) - $qnt_result_pag;
@@ -19,7 +20,6 @@ $inicio = ($pagina * $qnt_result_pag) - $qnt_result_pag;
 $lista_excecoes = array();
 
 $lista_abaris = abaris_getDocumentBySearch_ArrayTable($inicio, $qnt_result_pag, $auth, 'Documentos Pessoais - Registro', $lista_excecoes,'XML Documentação Acadêmica', $string_busca);
-
 
 $qnt_retorno = count($lista_abaris);
 
@@ -31,6 +31,7 @@ $dados = "<table class='table table-striped table-responsive'>
                 <th scope='col'>CPF</th>
                 <th scope='col'>MATRICULA</th>
                 <th scope='col'>NOME</th>
+                <th scope='col'>DATA</th>
                 <th scope='col'>LOG</th>
                 <th scope='col'>INTEGRAR</th>
             </tr>
@@ -50,6 +51,7 @@ foreach($lista_abaris as $dado){
                 <td>".$dado['cpf']."</td>
                 <td>".$dado['matricula']."</td>
                 <td id='nome'>".$dado['nome']."</td>
+                <td id='data_import'>".$dado['data_import']."</td>
                 <td id='log'>
                     <button type='button' id='btn".$dado['id']."' name='btnModal' onclick='chamaModal(".json_encode($dado['retorno_lyceum']).")' class=' ".$estilizacao." btn btn-outline-secondary btn-sm' data-toggle='modal' data-target='#modalExemplo'>
                         <i class='fa-regular fa-file-lines'></i>
